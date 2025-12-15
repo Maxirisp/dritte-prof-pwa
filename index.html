@@ -1,1 +1,3730 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
 
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#014f86">
+
+
+
+    <!-- ========================================
+         LIBRERIE ESTERNE
+         ======================================== -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <!-- META TAGS -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le dritte del Prof.</title>
+    
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- ========================================
+         CSS STYLES - INIZIO
+         ======================================== -->
+<style>
+
+/* ===============================
+   VARIABILI GLOBALI
+================================ */
+:root {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --border-color: #e5e7eb;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --accent-blue: #2563eb;
+  --accent-gold: #facc15;
+  --accent-green: #16a34a;
+  --accent-red: #dc2626;
+  --radius: 12px;
+}
+
+/* ===============================
+   RESET BASE
+================================ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Inter, system-ui, Arial, sans-serif;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* ===============================
+   LAYOUT
+================================ */
+.layout-container {
+  max-width: 1300px;
+  margin: auto;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 16px;
+}
+
+header, nav, main, aside {
+  background: var(--bg-secondary);
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+}
+
+/* ===============================
+   HEADER
+================================ */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.app-logo {
+  height: 90px;
+}
+
+.main-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.app-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* ===============================
+   NAVBAR
+================================ */
+.main-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 10px;
+}
+
+.nav-link {
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.nav-link.active {
+  background: var(--accent-blue);
+  color: #fff;
+}
+
+/* ===============================
+   SEZIONI
+================================ */
+.section {
+  display: none;
+  padding: 14px;
+}
+
+.section.active {
+  display: block;
+}
+
+.section-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+/* ===============================
+   TABS
+================================ */
+.tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: #fff;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.tab-btn.active {
+  background: var(--accent-blue);
+  color: #fff;
+}
+
+/* ===============================
+   CARD BASE
+================================ */
+.card {
+  background: #fff;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.card-body {
+  padding: 12px;
+}
+
+.card-title {
+  font-weight: 700;
+}
+
+/* ===============================
+   PRONOSTICO CARD
+================================ */
+.pronostico-card {
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.pronostico-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.pronostico-match {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.pronostico-match .team {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.pronostico-match img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.vs {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+
+/* ===============================
+   ESITI GRID
+================================ */
+.esiti-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.esito-box {
+  background: #014f86 !important;
+  color: #fff !important; 
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 6px;
+  text-align: center;
+  font-size: 0.75rem;
+}
+
+.esito-box.best {
+  background: #b71c1c !important;  /* rosso scuro elegante */
+  color: #fff !important;
+}
+
+/* ===============================
+   ANALISI
+================================ */
+.pronostico-analisi {
+  margin-top: 8px;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  border-left: 3px solid var(--accent-blue);
+  padding-left: 8px;
+}
+
+/* ===============================
+   TOP5 + BOMBE
+================================ */
+.prediction-card {
+  max-width: 900px;
+  margin: auto;
+}
+
+/* ===============================
+   TABELLE
+================================ */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.table th,
+.table td {
+  padding: 8px;
+  border-bottom: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.text-green { color: var(--accent-green); }
+.text-red   { color: var(--accent-red); }
+.text-gold  { color: var(--accent-gold); }
+
+/* ===== NASCONDI CONFIDENZA OVUNQUE ===== */
+.confidenza,
+.star-confidenza,
+.prediction-confidenza,
+.pronostico-confidenza {
+  display: none !important;
+}
+
+
+/* ===============================
+   SIDEBAR
+================================ */
+.sidebar .card {
+  margin-bottom: 12px;
+}
+
+/* ===============================
+   LOADING
+================================ */
+.loading {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* ===============================
+   BOTTONI GENERICI
+================================ */
+.btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  background: var(--accent-blue);
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.btn-admin {
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 0.75rem;
+}
+
+/* ===============================
+   MOBILE
+================================ */
+@media (max-width: 900px) {
+  .layout-container {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    order: -1;
+  }
+}
+
+
+/* ===============================
+   PRONOSTICI / TOP5 / BOMBE - DEFINITIVO
+================================ */
+
+.prediction-card,
+.pronostico-card {
+  padding: 6px 8px;
+  margin-bottom: 8px;
+  border-radius: 10px;
+}
+
+.prediction-header,
+.pronostico-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+
+/* ===== DISATTIVA TUTTE LE ANALISI ===== */
+.prediction-analysis,
+.pronostico-analisi,
+.x-analysis {
+  display: none !important;
+}
+
+
+.prediction-match-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 15px 0;
+}
+
+.team-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0; /* Importante per text overflow */
+}
+
+.team-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.team-name {
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+  word-wrap: break-word;
+  max-width: 100%;
+}
+
+.bestbet-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 20px;
+  background: #014f86;
+  border-radius: 12px;
+  min-width: 80px;
+  flex-shrink: 0; /* Non si comprime */
+}
+
+.bestbet-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+}
+
+.bestbet-perc {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.9);
+}
+
+
+.prof-tips {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8px;
+  gap: 6px;
+}
+
+.prof-logo {
+  width: 20px;
+  height: 20px;
+}
+
+.prof-text {
+  font-size: 11px;
+  color: #666;
+  font-weight: 600;
+}
+
+
+.compact-match {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;  /* ✅ NON più space-between */
+  padding: 6px 10px;
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 15px;
+  gap: 10px;                    /* ✅ distanza controllata */
+}
+
+.compact-teams {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  margin-right: 4px;           /* ✅ avvicina l’esito */
+}
+
+
+.compact-time {
+  width: 68px;              /* più largo per data + ora */
+  font-weight: 600;
+  color: #333;
+  font-size: 13px;
+  text-align: left;
+  line-height: 1.1;
+}
+
+.team-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.compact-logo {
+  width: 24px;              /* leggermente più grandi */
+  height: 24px;
+  object-fit: contain;
+}
+
+.compact-bet {
+  min-width: 58px;          /* ✅ ora OVER entra */
+  height: 30px;
+  padding: 0 6px;          /* ✅ si adatta al testo */
+  background: #014f86; 
+  color: white;
+  font-weight: 800;
+  font-size: 13px;         /* ✅ bilanciato */
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 4px;
+  white-space: nowrap;    /* ✅ mai a capo */
+}
+
+
+/* Footer finale */
+.prof-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #555;
+  margin-top: 8px;
+}
+
+.prof-footer img {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+}
+
+/* ✅ BOMBE allineate allo stile COMPACT */
+#sorprese-forma-container .prediction-match-row {
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+#sorprese-forma-container .bestbet-box {
+  min-width: 58px;
+  padding: 4px 6px;
+  font-size: 13px;
+}
+
+.team-row span {
+  font-size: 16px;
+}
+
+.compact-time {
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+
+.list-header {
+  display: flex;
+  align-items: center;
+  background: #c62828;
+  color: white;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 6px 10px;
+  border-radius: 6px 6px 0 0;
+  margin-bottom: 4px;
+}
+
+.lh-data {
+  width: 70px;
+}
+
+.lh-partita {
+  flex: 1;
+}
+
+.lh-esito {
+  width: 60px;              /* ✅ più stretta */
+  text-align: center;
+}
+
+.lr-esito {
+  width: 60px;              /* ✅ più vicina */
+  display: flex;
+  justify-content: flex-start;  /* ✅ non più centrata lontano */
+  padding-left: 6px;        /* ✅ piccola distanza controllata */
+}
+
+/* Intestazione Data - Partita - Esito */
+.list-header {
+  display: flex;
+  align-items: center;
+  background: #c62828;
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 6px 10px;
+  border-radius: 6px 6px 0 0;
+}
+
+.lh-data {
+  width: 80px;
+  border-right: 1px solid #cce4ff; /* linea verticale azzurra */
+}
+
+.lh-partita {
+  flex: 1;
+  padding-left: 8px;
+  border-right: 1px solid #cce4ff; /* linea verticale azzurra */
+}
+
+
+/* Righe contenuto */
+.list-row {
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-bottom: 1px solid #eeeeee;
+  font-size: 14px;
+}
+
+.compact-logo {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+/* Box esito (allineato e più largo per "Under 2.5", "NoGol", ecc.) */
+.compact-bet {
+  min-width: 64px;
+  height: 30px;
+  padding: 0 8px;
+  background: #014f86;
+  color: #fff;
+  font-weight: 800;
+  font-size: 13px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  margin: 0; /* niente spinta laterale */
+}
+
+
+
+/* ===============================
+   OVERRIDE DEFINITIVO ALLINEAMENTO
+   (METTERE IN FONDO AL FILE)
+================================ */
+
+/* Colonne più vicine */
+.lh-data,
+.lr-data {
+  width: 65px !important;
+}
+
+.lh-esito,
+.lr-esito {
+  width: 68px !important;
+  justify-content: flex-start !important;
+  padding-left: 4px !important;
+}
+
+/* Partita più compatta verso l’esito */
+.lh-partita,
+.lr-partita {
+  padding-right: 4px !important;
+}
+
+/* Righe più compatte */
+.list-row {
+  gap: 4px !important;
+  font-size: 15px !important;
+}
+
+/* Più spazio tra le due squadre */
+.team-row {
+  margin-bottom: 6px !important;
+}
+
+/* Loghi più grandi */
+.compact-logo {
+  width: 30px !important;
+  height: 30px !important;
+}
+
+/* Esito più grande e più vicino */
+.compact-bet {
+  min-width: 72px !important;
+  height: 36px !important;
+  font-size: 15px !important;
+  margin-left: 0 !important;
+}
+
+
+
+/* Colonne esiti multiple */
+.lh-esito-multi,
+.lr-esito-multi {
+  width: 72px;
+  text-align: center;
+  border-right: 1px solid #cce4ff;
+}
+
+.lh-esito-multi:last-child,
+.lr-esito-multi:last-child {
+  border-right: none;
+}
+
+/* Box esito principale */
+.multi-bet {
+  background: #014f86;
+  color: #fff;
+  font-weight: 800;
+  font-size: 14px;
+  border-radius: 6px;
+  padding: 4px 6px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Percentuale sotto */
+.multi-perc {
+  margin-top: 2px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #0d47a1;
+}
+
+
+/* ===============================
+   ALIGN PRONOSTICI TABLE COLUMNS
+   (OVERRIDE FINALE)
+================================ */
+
+.list-header,
+.list-row {
+  display: grid !important;
+  grid-template-columns: 
+      70px        /* Data */
+      minmax(0, 1fr) /* Partita */
+      80px        /* 1X2 */
+      80px        /* O/U */
+      80px;       /* G/NG */
+  align-items: center;
+  gap: 4px;       /* molto più vicino */
+}
+
+/* Lascia gestire le larghezze alla griglia */
+.lh-data,
+.lr-data,
+.lh-partita,
+.lr-partita,
+.lh-esito-multi,
+.lr-esito-multi {
+  width: auto !important;
+}
+
+/* Optional: un po' di padding per respirare */
+.lr-data {
+  padding-right: 6px !important;
+}
+
+.lr-partita {
+  padding: 0 8px !important;
+}
+
+.lr-esito-multi {
+  justify-content: center !important;
+}
+
+
+
+.lh-data,
+.lr-data,
+.lh-partita,
+.lr-partita,
+.lh-esito-multi,
+.lr-esito-multi {
+  width: auto !important;
+  padding: 0 !important;
+}
+
+/* Centra gli esiti */
+.lh-esito-multi,
+.lr-esito-multi {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+
+
+/* NAVY per box esito nella TOP5 */
+.compact-bet,
+.multi-bet {
+  background: #014f86 !important;  /* Navy più chiaro */
+  color: #ffffff !important;
+  font-weight: 600 !important;     /* meno bold */
+  font-size: 13px !important;
+}
+
+/* =====================================
+   VERSIONE MOBILE (SCREEN < 480px)
+   Tabella diventa layout verticale
+===================================== */
+
+@media (max-width: 480px) {
+
+  .list-header {
+    display: none !important;
+  }
+
+  .list-row {
+    display: grid !important;
+    grid-template-columns: 1fr auto; /* partita | esiti */
+    gap: 6px;
+    padding: 10px 8px !important;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid #e3e8ef;
+    background: #ffffff;
+  }
+
+  /* Data + ora su un’unica riga */
+  .lr-data {
+    grid-column: 1 / span 2;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #475569;
+    margin-bottom: 4px;
+  }
+
+  /* Squadre a sinistra */
+  .lr-partita {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .team-row {
+    margin-bottom: 4px !important;
+  }
+
+  .compact-logo {
+    width: 26px !important;
+    height: 26px !important;
+  }
+
+  /* Esiti uno affianco all’altro, a destra */
+  .lr-esito-multi {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    gap: 4px !important;
+  }
+
+  /* Box esito senza icone */
+  .multi-bet {
+    background: #014f86 !important; /* navy chiaro */
+    color: #fff !important;
+    padding: 4px 6px !important;
+    border-radius: 6px;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    white-space: nowrap;
+  }
+
+  /* Percentuali */
+  .multi-perc {
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    color: #334155 !important;
+  }
+}
+
+/* Fix colonne pronostici */
+#pronostici-content .list-row {
+  display: grid !important;
+  grid-template-columns: 90px 1fr 70px 70px 70px; /* Data | Partita | 3 esiti */
+  align-items: center;
+  gap: 6px;
+}
+
+/* Esiti compatti */
+#pronostici-content .lr-esito-multi {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Colore e stile esiti */
+#pronostici-content .multi-bet {
+  background: #014f86;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+#pronostici-content .multi-perc {
+  font-size: 11px;
+  color: #555;
+  margin-top: 2px;
+}
+
+/* ===============================
+   PRONOSTICI - 4 COLONNE
+================================ */
+
+/* Griglia: Partita | 1X2 | O/U | G/NG */
+#pronostici-content .list-header,
+#pronostici-content .list-row {
+  display: grid !important;
+  grid-template-columns: 1fr 70px 70px 70px;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 4px;
+}
+
+/* HEADER */
+#pronostici-content .list-header {
+  background: #c62828;
+  color: white;
+  font-weight: 700;
+  padding: 8px 4px;
+  border-radius: 6px 6px 0 0;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* PARTITA (colonna 1) */
+#pronostici-content .lr-partita {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+#pronostici-content .lr-partita .team-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+#pronostici-content .lr-partita span {
+  font-size: 14px; /* ridotto */
+  font-weight: 600;
+}
+
+/* LOGHI PICCOLI */
+#pronostici-content .compact-logo {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+/* ESITI (colonne 2–4) */
+#pronostici-content .lr-esito-multi {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+#pronostici-content .multi-bet {
+  background: #014f86; /* navy chiaro */
+  padding: 3px 6px;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+#pronostici-content .multi-perc {
+  margin-top: 2px;
+  font-size: 11px;
+  color: #444;
+}
+
+/* MOBILE FIX */
+@media (max-width: 480px) {
+  #pronostici-content .list-header,
+  #pronostici-content .list-row {
+    grid-template-columns: 1fr 55px 55px 55px;
+  }
+
+  #pronostici-content .multi-bet {
+    padding: 2px 5px;
+    font-size: 11px;
+  }
+
+  #pronostici-content .multi-perc {
+    font-size: 10px;
+  }
+
+  #pronostici-content .lr-partita span {
+    font-size: 13px;
+  }
+
+  #pronostici-content .compact-logo {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+
+.combo-cell {
+    display: flex;
+    flex-direction: column;   /* COMBO SOPRA, % SOTTO */
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+
+    width: 140px;             /* Forza larghezza costante */
+}
+
+.combo-pill {
+    background: #003B70;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-size: 0.80rem;
+    text-align: center;
+
+    max-width: 140px;         /* Evita overflow */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;  /* Se troppo lunga, mette "…" */
+}
+
+.mini-perc {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+}
+
+
+#classifiche-content table tbody tr td:nth-child(3) {
+  color: var(--accent-red);
+  font-weight: 700;
+}
+
+</style>
+
+
+</head>
+
+<body>
+
+<div class="layout-container">
+
+  <!-- ================= HEADER ================= -->
+  <header class="header">
+    <div class="logo-area" id="secret-logo-area">
+      <img src="https://lh3.googleusercontent.com/d/1lmKYeW8AavhBtnRwQIDkDiGjN4SOk4LP"
+           alt="Le Dritte del Prof." class="app-logo">
+      <div class="text-branding">
+        <h1 class="main-title">Le dritte del Prof.</h1>
+        <div class="app-subtitle">PRO<span>nostici</span> AI</div>
+      </div>
+    </div>
+
+    <!-- ADMIN PANEL -->
+    <div id="admin-panel" class="card" style="display:none;">
+      <div class="card-header">🔧 Pannello Professore</div>
+      <div class="card-body admin-grid">
+
+        <button class="btn-admin" id="btn-admin-risultati">📊 Aggiorna Risultati</button>
+        <button class="btn-admin" id="btn-admin-storico">📈 Aggiorna Storico</button>
+
+        <button class="btn-admin" id="btn-admin-classifiche">🏆 Aggiorna Classifiche</button>
+        <button class="btn-admin" id="btn-admin-stats-a">⚽ Statistiche Serie A</button>
+
+        <button class="btn-admin" id="btn-admin-stats-b">🥈 Statistiche Serie B</button>
+        <button class="btn-admin" id="btn-admin-stats-ucl">🏆 Statistiche Champions</button>
+
+        <button class="btn-admin" id="btn-admin-calendario">📅 Aggiorna Calendario</button>
+        <button class="btn-admin" id="btn-admin-assenti">🏥 Cache Assenti</button>
+
+        <button class="btn-admin" id="btn-admin-ml">🤖 Machine Learning</button>
+        <button class="btn-admin" id="btn-admin-pronostici">🎯 Genera Pronostici</button>
+
+        <button class="btn-admin" id="btn-admin-previsioni">👤 Previsioni Giocatori</button>
+        <button class="btn-admin" id="btn-admin-misterx">🎭 Mister X</button>
+
+        <button class="btn important" id="btn-admin-sequenza-manuale">⚡ Sequenza Manuale</button>
+        <button class="btn success" id="btn-admin-sequenza-automatica">🚀 Sequenza Automatica</button>
+        <button class="btn info" id="btn-admin-apprendimento" onclick="runApprendimento(this)"> 🧠 Analizza AI </button>
+        <button class="btn warning" id="btn-admin-stato">📊 Stato Automazione</button>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= NAV ================= -->
+  <nav class="main-nav">
+    <a class="nav-link active" data-section="home">🏠 Home</a>
+    <a class="nav-link" data-section="classifiche">📊 Classifiche</a>
+    <a class="nav-link" data-section="risultati">📋 Risultati</a>
+    <a class="nav-link" data-section="prossime-partite">📅 Prossime</a>
+    
+  </nav>
+
+  <!-- ================= MAIN ================= -->
+  <main class="main-content">
+
+   <section class="section active" id="home-section">
+  <div class="tabs">
+    <button class="tab-btn home-toggle-btn active" data-target="home">🏠 Home</button>
+    <button class="tab-btn home-toggle-btn active" data-target="daily">⚡ Oggi</button>
+    <button class="tab-btn home-toggle-btn" data-target="weekend">🏆 Weekend</button>
+    <button class="tab-btn home-toggle-btn" data-target="weekend1x2">🎯 1X2 Weekend</button>
+    <button class="tab-btn home-toggle-btn" data-target="pronostici">⚽ Pronostici</button>
+    <button class="tab-btn home-toggle-btn" data-target="bombe">💣 Bombe</button>
+    <button class="tab-btn home-toggle-btn" data-target="ris-esatti">🎯 Risultati Esatti</button>
+    <button class="tab-btn home-toggle-btn" data-target="combo">🔗 Combo</button>
+    <button class="tab-btn home-toggle-btn" data-target="misterx">🕵️ Mister X</button>
+    <button class="tab-btn home-toggle-btn" data-target="cartellini">🟨 Cartellini</button>
+    <button class="tab-btn home-toggle-btn" data-target="giocatori">📈 Giocatori</button>
+
+  </div>
+
+  <div id="surprise-content"></div>
+  <div id="sorprese-forma-content"></div>
+  <div id="home-1x2-weekend" class="section" style="display:none;"></div> 
+  <div id="home-content" style="display:block;"></div>
+  <div id="home-bombe" style="display:none;"></div>
+  <div id="home-risultati" style="display:none;"></div>
+  <div id="home-combo" style="display:none;"></div>
+  <div id="home-misterx" style="display:none;"></div>
+  <div id="home-cartellini" style="display:none;"></div>
+  <div id="home-giocatori" style="display:none;"></div>
+</section>
+
+
+    <section class="section" id="pronostici-section">
+      <h2 class="section-title">⚽ Pronostici</h2>
+      <div class="tabs">
+        <button class="tab-btn active" data-campionato="A">Serie A</button>
+        <button class="tab-btn" data-campionato="UCL">Champions</button>
+        <button class="tab-btn" data-campionato="B">Serie B</button>
+        <button class="tab-btn" data-campionato="CA">Serie C-A</button>
+        <button class="tab-btn" data-campionato="CB">Serie C-B</button>
+        <button class="tab-btn" data-campionato="CC">Serie C-C</button>
+      </div>
+      <div id="pronostici-content"></div>
+    </section>
+
+    <section class="section" id="classifiche-section">
+      <h2 class="section-title">📊 Classifiche</h2>
+      <div class="tabs">
+        <button class="tab-btn active" data-campionato="A">Serie A</button>
+        <button class="tab-btn" data-campionato="UCL">Champions</button>
+        <button class="tab-btn" data-campionato="B">Serie B</button>
+      </div>
+      <div id="classifiche-content"></div>
+    </section>
+
+    <section class="section" id="risultati-section">
+      <h2 class="section-title">📋 Risultati</h2>
+      <div id="risultati-content"></div>
+    </section>
+
+    <section class="section" id="prossime-partite-section">
+      <h2 class="section-title">📅 Prossime Partite</h2>
+
+      <div class="tabs">
+          <button class="tab-btn" data-sheet="A">Serie A</button>
+          <button class="tab-btn" data-sheet="B">Serie B</button>
+        </div>
+
+  <!-- Loader -->
+  <div id="prossime-loading" style="display:none">Caricamento...</div>
+
+  <!-- Contenuto partite -->
+  <div id="prossime-content"></div>
+</section>
+
+
+      
+      <div id="prossime-content"></div>
+    </section>
+
+    <section class="section" id="misterx-section">
+      <div class="card">
+        <div class="card-header">🎯 Mister X</div>
+        <div class="card-body" id="misterXList"></div>
+      </div>
+    </section>
+
+
+<section class="section" id="ris-esatti" style="display:none;">
+    <h2 class="section-title">🎯 Risultati Esatti</h2>
+    <div id="risEsattiList"></div>
+</section>
+
+
+<section class="section" id="combo" style="display:none;">
+    <h2 class="section-title">🎛 Combo Consigliate</h2>
+    <div id="comboList"></div>
+</section>
+
+
+    </main>
+
+ 
+</div>
+
+<!-- =======================
+     MODALE APPRENDIMENTO AI
+     ======================= -->
+<div id="modal-apprendimento" 
+     style="
+        display:none;
+        position:fixed; 
+        top:0; left:0;
+        width:100%; height:100%;
+        background:rgba(0,0,0,0.6);
+        justify-content:center;
+        align-items:center;
+        z-index:99999;
+     ">
+
+    <div style="
+        background:white;
+        width:90%;
+        max-width:600px;
+        padding:20px;
+        border-radius:12px;
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+    ">
+        <h2>🧠 Analisi Apprendimento AI</h2>
+
+        <!-- LOADER -->
+        <div id="modal-loading" style="
+            display:none;
+            text-align:center;
+            font-weight:bold;
+            color:#2563eb;
+        ">
+            ⏳ Analisi in corso...
+        </div>
+
+        <!-- AREA LOG -->
+        <pre id="modal-log" style="
+            background:#111;
+            color:#0f0;
+            padding:10px;
+            height:300px;
+            overflow-y:auto;
+            border-radius:8px;
+            font-size:0.75rem;
+        "></pre>
+
+        <button class="btn" onclick="closeModal()">Chiudi</button>
+    </div>
+</div>
+
+
+
+</body>
+
+    <!-- ========================================
+     JAVASCRIPT CODE
+     ======================================== -->
+<script>
+// ========================================
+// GLOBAL STATE & CACHE
+// ========================================
+let state = { 
+    activeSection: 'home', 
+    activeCampionato: 'A',
+    socialCampionato: 'A'
+};
+
+let cache = { 
+    top5Daily: null, 
+    top5Weekend: null,
+    pronostici: { A: null, B: null, CA: null, CB: null, CC: null, UCL: null }, 
+    risultati: { A: null, B: null, CA: null, CB: null, CC: null, UCL: null }, 
+    classifiche: { A: null, B: null, CA: null, CB: null, CC: null, UCL: null }, 
+    statistiche: { A: null, B: null, UCL: null },
+    socialData: { A: null, B: null, CA: null, CB: null, CC: null, UCL: null }
+};
+
+let homeToggleState = 'daily';
+
+// ========================================
+// UTILITY: Google Apps Script Runner
+// ========================================
+function runGAS(funcName, ...args) {
+    return new Promise((resolve, reject) => {
+        google.script.run
+            .withSuccessHandler(resolve)
+            .withFailureHandler(reject)[funcName](...args);
+    });
+}
+
+// ========================================
+// INITIALIZATION FUNCTIONS
+// ========================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    initNav();
+    initTabs();
+    initHomeToggles();
+    initSocialTabs();
+    setupSecretUpdate();
+    loadHomePage();
+});
+
+// ========================================
+// NAVIGATION & TAB HANDLERS
+// ========================================
+
+function initNav() {
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', e => { 
+            e.preventDefault(); 
+            showSection(link.dataset.section); 
+        });
+    });
+}
+
+function initTabs() {
+    document.querySelectorAll('.tab-btn').forEach(tab => {
+        tab.addEventListener('click', () => {
+            const sectionId = tab.closest('.section').id;
+            state.activeCampionato = tab.dataset.campionato;
+            updateActiveTabs(`#${sectionId}`, state.activeCampionato);
+            
+            if (sectionId.includes('pronostici')) loadPronostici(state.activeCampionato);
+            else if (sectionId.includes('risultati')) loadRisultati(state.activeCampionato);
+            else if (sectionId.includes('classifiche')) loadClassifichePerCampionato(state.activeCampionato);
+            else if (sectionId.includes('statistiche')) loadStatistiche();
+            else if (sectionId.includes('cartellini')) loadCartellini(state.activeCampionato);
+        });
+    });
+}
+
+function initHomeToggles() {
+  document.querySelectorAll('.home-toggle-btn').forEach(btn => {
+
+    btn.addEventListener('click', () => {
+
+      // ===============================
+      // STATO ATTIVO TAB
+      // ===============================
+      document.querySelectorAll('.home-toggle-btn')
+        .forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const target = btn.dataset.target;
+
+      // ===============================
+      // NASCONDO TUTTI I CONTENITORI HOME
+      // ===============================
+      document.getElementById("home-content").style.display = "none";
+      document.getElementById("home-bombe").style.display = "none";
+      document.getElementById("home-risultati").style.display = "none";
+      document.getElementById("home-combo").style.display = "none";
+      document.getElementById("home-misterx").style.display = "none";
+
+      const h1x2 = document.getElementById("home-1x2-weekend");
+      if (h1x2) h1x2.style.display = "none";
+
+      // RESET CONTENUTI EXTRA
+      const sc = document.getElementById("surprise-container");
+      if (sc) sc.style.display = "none";
+
+      const sf = document.getElementById("sorprese-forma-container");
+      if (sf) sf.style.display = "none";
+
+      // ===============================
+      // SWITCH TAB HOME
+      // ===============================
+      switch (target) {
+
+        
+        case "home":
+          document.getElementById("home-content").style.display = "block";
+          caricaHome('daily');
+          break;
+        
+        
+        case "daily":
+          document.getElementById("home-content").style.display = "block";
+          caricaHome('daily');
+          break;
+
+        case "weekend":
+          document.getElementById("home-content").style.display = "block";
+          caricaHome('weekend');
+          break;
+
+        case "weekend1x2":
+          if (h1x2) h1x2.style.display = "block";
+          loadTop1X2Weekend_Home();
+          break;
+
+          case "pronostici":
+            // 🔒 Pronostici NON è un contenuto home
+            // usiamo la sezione principale
+            state.activeSection = 'pronostici';
+            showSection('pronostici');
+            return; // 
+
+
+        case "bombe":
+          document.getElementById("home-bombe").style.display = "block";
+          caricaBombe();
+          break;
+
+        case "ris-esatti":
+          document.getElementById("home-risultati").style.display = "block";
+          loadRisultatiEsatti();
+          break;
+
+        case "combo":
+          document.getElementById("home-combo").style.display = "block";
+          loadComboConsigliate();
+          break;
+
+        case "misterx":
+          document.getElementById("home-misterx").style.display = "block";
+          loadMisterX_Home();
+          break;
+
+        case "cartellini":
+        document.getElementById("home-cartellini").style.display = "block";
+        loadCartellini_Home();
+        break;
+
+        case "giocatori":
+        document.getElementById("home-giocatori").style.display = "block";
+         loadGiocatori_Home();
+        break;
+
+      }
+
+    });
+
+  });
+}
+
+
+
+/* ---------------------
+   FUNZIONI DI SUPPORTO
+---------------------- */
+
+function hideAllHomeContainers() {
+    const ids = [
+        "home-content",
+        "home-bombe",
+        "home-risultati",
+        "home-combo",
+        "home-misterx",
+        "surprise-content",
+        "sorprese-forma-content",
+        "home-cartellini",
+        "home-giocatori"
+    ];
+
+    ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = "none";
+    });
+}
+
+function show(id) {
+    const el = document.getElementById(id);
+    if (el) el.style.display = "block";
+}
+
+
+
+function showSection(sectionName) {
+    if (sectionName === 'home') {
+    state.activeSection = 'home';
+    }
+    state.activeSection = sectionName;
+    document.querySelectorAll('.nav-link').forEach(l => 
+        l.classList.toggle('active', l.dataset.section === sectionName)
+    );
+    document.querySelectorAll('.section').forEach(s => 
+        s.classList.toggle('active', s.id === `${sectionName}-section`)
+    );
+
+    if (['pronostici', 'classifiche', 'risultati', 'statistiche'].includes(sectionName)) {
+        state.activeCampionato = 'A';
+        updateActiveTabs(`#${sectionName}-section`, 'A');
+    }
+
+    switch(sectionName) {
+        case 'home':
+    // Mostra la home
+    loadHomePage();
+
+    // 🔁 RESET toggle home
+    document.querySelectorAll('.home-toggle-btn').forEach(b =>
+        b.classList.remove('active')
+    );
+
+    const dailyBtn = document.querySelector('.home-toggle-btn[data-target="daily"]');
+    if (dailyBtn) dailyBtn.classList.add('active');
+
+    // 🔁 NASCONDI sezioni non-home
+    const pron = document.getElementById('pronostici-section');
+    if (pron) pron.classList.remove('active');
+
+    break;
+        case 'pronostici': loadPronostici(state.activeCampionato); break;
+        case 'classifiche': loadClassifichePerCampionato(state.activeCampionato); break;
+        case 'risultati': loadRisultati(state.activeCampionato); break;
+        case 'statistiche': loadStatistiche(); break;
+        case 'cartellini': loadCartellini(state.activeCampionato); break;
+        case 'misterx': loadMisterX_Home(); break;  
+        case 'prossime-partite': caricaProssime('A'); break;
+        case 'ris-esatti': document.getElementById('ris-esatti').style.display = 'block';   loadRisultatiEsatti(); break;
+        case 'combo': document.getElementById('combo').style.display = 'block'; loadComboConsigliate();  break;
+
+    }
+}
+
+function updateActiveTabs(selector, activeCamp) {
+    document.querySelectorAll(`${selector} .tab-btn`).forEach(t => 
+        t.classList.toggle('active', t.dataset.campionato === activeCamp)
+    );
+}
+
+function setLoading(id, msg) {
+    const c = document.getElementById(id);
+    if(c) c.innerHTML = `<div class="loading"><div class="spinner"></div><p>${msg}</p></div>`;
+}
+
+function setError(id, err) {
+    const c = document.getElementById(id);
+    if(c) c.innerHTML = `<div class="card" style="background: var(--accent-red);"><div class="card-body"><strong>Errore:</strong> ${err.message || err}</div></div>`;
+}
+
+function normalizzaLogo(logo) {
+    if (!logo) return '';
+
+    logo = logo.trim();
+
+    // Se è già una dataURL completa
+    if (logo.startsWith('data:image')) {
+        return logo;
+    }
+
+    // Se è base64 puro
+    if (logo.length > 100) {
+        return `data:image/png;base64,${logo}`;
+    }
+
+    // Altrimenti è un URL normale
+    return logo;
+}
+
+
+function caricaBombe() {
+  const container = document.getElementById("home-bombe");
+
+  container.innerHTML = `
+    <div class="loading">
+      <div class="spinner"></div>
+      <p>Caricamento Bombe del Prof...</p>
+    </div>
+  `;
+
+  runGAS('getBombe')
+    .then(res => {
+
+      if (!res?.success || !res.bombe?.length) {
+        container.innerHTML = `
+          <div class="card">
+            <div class="card-body text-center">
+              💣 Nessuna bomba disponibile al momento.
+            </div>
+          </div>`;
+        return;
+      }
+
+      let html = '';
+
+      res.bombe.forEach((b, i) => {
+
+        const perc = Number(b.prob || 0);
+
+        html += `
+          <div class="prediction-card">
+
+            <div class="prediction-header">
+              <span>💣 BOMBA ${i + 1}</span>
+              <span>${b.campionato} | ${b.data}</span>
+            </div>
+
+            <div class="prediction-match-row">
+
+              <div class="team-block">
+                ${b.home_logo ? `<img class="team-logo" src="${b.home_logo}">` : ''}
+                <div class="team-name">${b.home}</div>
+              </div>
+
+              <div class="bestbet-box">
+                <div class="bestbet-value">${b.bet}</div>
+                <div class="bestbet-perc">${perc > 0 ? perc.toFixed(0) + '%' : '—'}</div>
+              </div>
+
+              <div class="team-block">
+                ${b.away_logo ? `<img class="team-logo" src="${b.away_logo}">` : ''}
+                <div class="team-name">${b.away}</div>
+              </div>
+
+            </div>
+
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+
+    })
+    .catch(() => {
+      container.innerHTML = `
+        <div class="card">
+          <div class="card-body text-center">❌ Errore caricamento Bombe</div>
+        </div>`;
+    });
+}
+
+
+
+// ========================================
+// DATA LOADING FUNCTIONS
+// ========================================
+
+function loadHomePage() {
+    loadSorpresa();
+    loadSorpreseForma();
+    loadTop5Daily();
+   
+
+    document.querySelector('.home-toggle-btn[data-target="daily"]').classList.add('active');
+    document.querySelector('.home-toggle-btn[data-target="weekend"]').classList.remove('active');
+}
+
+
+
+async function loadTop5Weekend() { 
+    const containerId = 'home-content';
+
+    if (cache.top5Weekend) {
+        displayTop5(cache.top5Weekend, containerId, 'Nessuna dritta per il weekend.');
+
+             return;
+    }
+
+    setLoading(containerId, 'Cerco le dritte del Weekend...');
+
+    try {
+        const res = await runGAS('getTop5PronosticiDelWeekend');
+        if (res?.success) { 
+            cache.top5Weekend = res.top5;
+
+            displayTop5(res.top5, containerId, 'Nessuna dritta per il weekend.');
+
+            
+        } else {
+            throw new Error(res?.error || "Caricamento fallito.");
+        }
+    } catch (err) {
+        setError(containerId, err);
+    }
+}
+
+
+async function loadTop5Daily() { 
+    const containerId = 'home-content';
+
+    // ✅ Se è già in cache, mostra e aggiungi il pulsante
+    if (cache.top5Daily) {
+        displayTop5(cache.top5Daily, containerId, 'Nessuna dritta per oggi.');
+
+       return;
+    }
+
+    setLoading(containerId, 'Cerco le dritte di oggi...');
+
+    try {
+        const res = await runGAS('getTop5PronosticiDelGiorno');
+
+        if (res?.success) { 
+            cache.top5Daily = res.top5; 
+            displayTop5(res.top5, containerId, 'Nessuna dritta per oggi.');
+
+         } else {
+            throw new Error(res?.error || "Caricamento fallito.");
+        }
+
+    } catch (err) { 
+        setError(containerId, err); 
+    }
+}
+
+
+async function loadSorpresa() {
+    const box = document.getElementById('surprise-container');
+    if (!box) return; // <<--- FIX DEFINITIVO
+
+    try {
+        const res = await runGAS('getPronosticoSorpresa');
+
+        if (res?.success && res.sorpresa) {
+            box.style.display = 'block';
+            displaySorpresa(res.sorpresa);
+        } else {
+            box.style.display = 'none';
+        }
+
+    } catch (e) {
+        console.error("Errore Sorpresa AI:", e);
+        box.style.display = 'none';
+    }
+}
+
+async function loadSorpreseForma() {
+    const box = document.getElementById('sorprese-forma-container');
+    if (!box) return; // <<--- FIX DEFINITIVO
+
+    try {
+        const res = await runGAS('getSorpreseBasateSullaForma');
+
+        if (res.success && res.sorprese?.length > 0) {
+            box.style.display = 'block';
+            displaySorpreseForma(res.sorprese);
+        } else {
+            box.style.display = 'none';
+        }
+
+    } catch (e) {
+        console.error("Nessuna 'Bomba' (forma) trovata:", e);
+        box.style.display = 'none';
+    }
+}
+
+
+async function loadPronostici(prefix) {
+    if (cache.pronostici[prefix]) return displayPronostici(cache.pronostici[prefix], prefix);
+    setLoading('pronostici-content', `Analisi Serie ${prefix}...`);
+    try {
+        const res = await runGAS('generaPronosticiCompletiPerHTML', prefix);
+        if (res?.success) { 
+            cache.pronostici[prefix] = res; 
+            displayPronostici(res, prefix); 
+        } else throw new Error(res?.error || "Fallito.");
+    } catch (err) { setError('pronostici-content', err); }
+}
+
+async function loadRisultati(prefix) {
+    if (cache.risultati[prefix]) return displayRisultati(cache.risultati[prefix], prefix);
+    setLoading('risultati-content', `Recupero risultati Serie ${prefix}...`);
+    try {
+        const res = await runGAS('getRisultatiGiornataPrecedente', prefix);
+        if (res?.success) { 
+            cache.risultati[prefix] = res; 
+            displayRisultati(res, prefix); 
+        } else throw new Error(res?.error || "Fallito.");
+    } catch (err) { setError('risultati-content', err); }
+}
+
+async function loadClassifichePerCampionato(prefix) {
+    if (cache.classifiche[prefix]) return displayClassifichePerCampionato(prefix);
+    setLoading('classifiche-content', `Caricamento Serie ${prefix}...`);
+    try {
+        const res = await runGAS('getClassifiche');
+        if (res?.success) { 
+            Object.keys(res.campionati).forEach(key => {
+                cache.classifiche[key] = res.campionati[key];
+            });
+            displayClassifichePerCampionato(prefix); 
+        } else throw new Error(res?.message || "Fallito.");
+    } catch (err) { setError('classifiche-content', err); }
+}
+
+async function loadStatistiche() {
+  const container = document.getElementById('statistiche-content');
+  if (!container) return;
+
+  setLoading('statistiche-content', 'Analisi giocatori in corso...');
+
+  try {
+    const res = await runGAS('getPrevisioniGiocatori', state.activeCampionato);
+
+    if (res?.success && res.marcatori?.length) {
+      displayStatistiche(res);
+    } else {
+      container.innerHTML = `
+        <div class="card">
+          <div class="card-body text-center text-secondary">
+            Nessuna statistica giocatori disponibile.
+          </div>
+        </div>`;
+    }
+
+  } catch (err) {
+    container.innerHTML = `
+      <div class="card">
+        <div class="card-body text-center text-red">
+          Errore caricamento giocatori
+        </div>
+      </div>`;
+  }
+}
+
+async function loadGiocatori_Home() {
+  const container = document.getElementById('home-giocatori');
+  if (!container) return;
+
+  setLoading('home-giocatori', 'Caricamento giocatori...');
+
+  try {
+    const res = await runGAS('getPrevisioniGiocatori', 'A');
+
+    if (res?.success) {
+      displayStatisticheHome(res, 'home-giocatori');
+    } else {
+      container.innerHTML = `
+        <div class="card">
+          <div class="card-body text-center text-secondary">
+            Nessun dato giocatori.
+          </div>
+        </div>`;
+    }
+
+  } catch (e) {
+    container.innerHTML = `
+      <div class="card">
+        <div class="card-body text-center text-red">
+          Errore giocatori Home
+        </div>
+      </div>`;
+  }
+}
+
+
+
+
+function displayCartellini(list) {
+  const container = document.getElementById("cartellini-content");
+
+  if (!list || !list.length) {
+    container.innerHTML = `
+      <div class="card">
+        <div class="card-body text-center">
+          Nessuna previsione cartellini disponibile.
+        </div>
+      </div>`;
+    return;
+  }
+
+  let html = ''; 
+
+  list.forEach(p => {
+    const [casa, trasf] = p.partita.split(' - ');
+    const perc = parseFloat(String(p.prob).replace('%','')) || 0;
+
+    html += `
+      <div class="prediction-card">
+
+        <div class="prediction-header">
+          <span>${p.data}</span>
+          <span>${p.campionato}</span>
+        </div>
+
+        <div class="prediction-match-row">
+
+          <div style="text-align:center;">
+            ${p.logoCasa ? `<img class="team-logo" src="${p.logoCasa}">` : ''}
+            <div class="team-name">${casa}</div>
+          </div>
+
+          <div class="bestbet-box">
+            <div class="bestbet-value">🟨</div>
+            <div class="bestbet-perc">${perc.toFixed(0)}%</div>
+          </div>
+
+          <div style="text-align:center;">
+            ${p.logoTrasferta ? `<img class="team-logo" src="${p.logoTrasferta}">` : ''}
+            <div class="team-name">${trasf}</div>
+          </div>
+
+        </div>
+
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+
+async function loadCartellini(prefix) {
+    const actualPrefix = prefix || 'A';
+    setLoading('cartellini-content', 'Analisi cartellini Serie ' + actualPrefix + '...');
+    
+    try {
+        const res = await runGAS("getCartelliniForWeb", state.activeCampionato);
+        
+        if (res && res.success) {
+            if (res.partite && res.partite.length > 0) {
+                displayCartellini(res, actualPrefix);
+            } else {
+                const container = document.getElementById('cartellini-content');
+                container.innerHTML = '<div class="card"><div class="card-body text-center">' +
+                    '<div style="color: var(--accent-gold); margin-bottom: 1rem;">🧪 Modalità Demo</div>' +
+                    '<button class="btn" id="btn-preview-cartellini" style="background: var(--accent-gold); color: var(--bg-primary);">👁️ Mostra Anteprima</button>' +
+                    '</div></div>';
+                
+                setTimeout(function() {
+                    const btn = document.getElementById("btn-preview-cartellini");
+                    if (btn) {
+                        btn.onclick = function() { displayCartellini(res, actualPrefix); };
+                    }
+                }, 0);
+            }
+        } else {
+            throw new Error(res?.error || "Errore");
+        }
+    } catch (err) { 
+        document.getElementById('cartellini-content').innerHTML = 
+            '<div class="card"><div class="card-body text-center">' +
+            '<div style="color: var(--accent-red);">❌ Errore</div>' +
+            '<button class="btn" onclick="loadCartellini(\'A\')">🔄 Ricarica</button>' +
+            '</div></div>';
+    }
+}
+
+async function loadCartellini_Home() {
+  const container = document.getElementById("home-cartellini");
+  if (!container) return;
+
+  container.innerHTML = `
+    <div class="loading">
+      <div class="spinner"></div>
+      <p>Analisi cartellini in corso...</p>
+    </div>
+  `;
+
+  try {
+    const res = await runGAS("getCartelliniForWeb");
+
+    if (res?.success && res.cartellini?.length > 0) {
+      displayCartellini(res.cartellini, "home-cartellini");
+    } else {
+      container.innerHTML = `
+        <div class="card">
+          <div class="card-body text-center text-secondary">
+            Nessuna previsione cartellini disponibile.
+          </div>
+        </div>`;
+    }
+  } catch (err) {
+    console.error(err);
+    container.innerHTML = `
+      <div class="card">
+        <div class="card-body text-center text-red">
+          Errore tecnico cartellini
+        </div>
+      </div>`;
+  }
+}
+
+// ========================================
+// DISPLAY FUNCTIONS
+// ========================================
+
+function displaySorpresa(s) {
+  const c = document.getElementById('surprise-container');
+  const content = document.getElementById('surprise-content');
+
+  if (!c || !content || !s) return;
+
+  c.style.display = 'block';
+  c.style.opacity = '0';
+  setTimeout(() => {
+    c.style.transition = 'opacity 0.6s';
+    c.style.opacity = '1';
+  }, 50);
+
+  // Estrazione squadre
+  const parts = (s.partita || '').split(' - ');
+  const casa = parts[0] || '';
+  const trasf = parts[1] || '';
+
+  // Data + ora senza secondi
+  let data = '';
+  let ora = '';
+  if (s.data && s.data.includes(' ')) {
+    const d = s.data.split(' ');
+    data = d[0].substring(0, 5);
+    ora = d[1].substring(0, 5);
+  } else if (s.data) {
+    ora = s.data.substring(0, 5);
+  }
+
+  const bestLabel = s.consiglio || '';
+
+  let html = '';
+
+  // ✅ Intestazione tabella
+  html += '<div class="list-header">';
+  html += '<div class="lh-data">Data</div>';
+  html += '<div class="lh-partita">Partita</div>';
+  html += '<div class="lh-esito">Esito</div>';
+  html += '</div>';
+
+  // ✅ Riga singola BOMBA
+  html += '<div class="list-row">';
+
+  // Colonna data
+  html += '<div class="lr-data">';
+  html += data + '<br>' + ora;
+  html += '</div>';
+
+  // Colonna partita
+  html += '<div class="lr-partita">';
+
+  html += '<div class="team-row">';
+  if (s.logoCasa) {
+    html += '<img src="' + s.logoCasa + '" class="compact-logo">';
+  }
+  html += '<span>' + casa + '</span>';
+  html += '</div>';
+
+  html += '<div class="team-row">';
+  if (s.logoTrasferta) {
+    html += '<img src="' + s.logoTrasferta + '" class="compact-logo">';
+  }
+  html += '<span>' + trasf + '</span>';
+  html += '</div>';
+
+  html += '</div>';
+
+  // Colonna esito
+  html += '<div class="lr-esito">';
+  html += '<div class="compact-bet">' + bestLabel + '</div>';
+  html += '</div>';
+
+  html += '</div>';
+
+  // ✅ Footer
+  html += '<div class="prof-footer">';
+  html += '<img src="https://lh3.googleusercontent.com/d/1lmKYeW8AavhBtnRwQIDkDiGjN4SOk4LP">';
+  html += '<span>By Le dritte del Prof.</span>';
+  html += '</div>';
+
+  content.innerHTML = html;
+}
+
+
+
+function displayTop5(top5, containerId, fallbackMessage) {
+  var c = document.getElementById(containerId);
+  if (!top5 || !top5.length) {
+    c.innerHTML = fallbackMessage;
+    return;
+  }
+
+  var html = '';
+
+  // Intestazione
+  html += `
+    <div class="list-header">
+      <div class="lh-data">Data</div>
+      <div class="lh-partita">Partita</div>
+      <div class="lh-esito">Esito</div>
+    </div>
+  `;
+
+  top5.forEach(function(p) {
+
+    var parts = (p.partita || '').split(' - ');
+    var casa = parts[0] || '';
+    var trasf = parts[1] || '';
+
+    // ===============================
+    // 📌 PARSING DATA + ORA (FIX)
+    // ===============================
+    var dataTxt = '';
+    var ora = '';
+
+    if (p.data && p.data.indexOf(' ') > -1) {
+      var d = p.data.split(' ');
+      dataTxt = d[0].substring(0, 5);  // es. "06/12"
+      ora = d[1].substring(0, 5);      // es. "18:30"
+    } else if (p.data) {
+      ora = p.data.substring(0, 5);    // fallback
+    }
+
+    // 🔧 COSTRUISCI "DATA - ORA" SOLO SE ENTRAMBI ESISTONO
+    var dataOra = '';
+    if (dataTxt && ora) dataOra = dataTxt + ' - ' + ora;
+    else if (dataTxt) dataOra = dataTxt;
+    else if (ora) dataOra = ora;
+
+    var bestLabel = p.bestLabel || '';
+
+    html += '<div class="list-row">';
+
+    // DATA
+    html += '<div class="lr-data">' + dataOra + '</div>';
+
+    // PARTITA
+    html += '<div class="lr-partita">';
+    html += '<div class="team-row">';
+    var logoCasa = p.logoCasa || p.home_logo || p.logo_home || '';
+if (logoCasa) {
+  html += '<img src="' + logoCasa + '" class="compact-logo">';
+}
+    html += '<span>' + casa + '</span>';
+    html += '</div>';
+
+    html += '<div class="team-row">';
+    var logoTrasf = p.logoTrasferta || p.away_logo || p.logo_away || '';
+if (logoTrasf) {
+  html += '<img src="' + logoTrasf + '" class="compact-logo">';
+}
+
+    html += '<span>' + trasf + '</span>';
+    html += '</div>';
+    html += '</div>';
+
+    // ESITO
+    html += `
+      <div class="lr-esito">
+        <div class="compact-bet">${bestLabel}</div>
+      </div>
+    `;
+
+    html += '</div>'; // fine riga
+  });
+
+  // FOOTER
+  html += `
+    <div class="prof-footer">
+      <img src="https://lh3.googleusercontent.com/d/1lmKYeW8AavhBtnRwQIDkDiGjN4SOk4LP">
+      <span>By Le dritte del Prof.</span>
+    </div>
+  `;
+
+  c.innerHTML = html;
+}
+
+
+function displayPronostici(data) {
+  var c = document.getElementById('pronostici-content');
+  if (!data.pronostici || !data.pronostici.length) {
+    c.innerHTML = '<div class="card"><div class="card-body text-center">Nessun pronostico disponibile.</div></div>';
+    return;
+  }
+
+  var html = '';
+
+  // HEADER (senza data)
+  html += '<div class="list-header">';
+  html += '<div class="lh-partita">Partita</div>';
+  html += '<div class="lh-esito-multi">1X2</div>';
+  html += '<div class="lh-esito-multi">O/U</div>';
+  html += '<div class="lh-esito-multi">G/NG</div>';
+  html += '</div>';
+
+  data.pronostici.forEach(function(p) {
+
+    var [casa, trasf] = (p.partita || '').split(' - ');
+
+    var es1x2 = p.consiglio1X2 || '—';
+    var esOU  = p.consiglioOverUnder || '—';
+    var esGN  = p.consiglioGol || '—';
+
+    var perc1x2 = p.prob1X2_val || '';
+    var percOU  = p.probOU_val || '';
+    var percGN  = p.probGol_val || '';
+
+    html += '<div class="list-row">';
+
+    // PARTITA
+    html += '<div class="lr-partita">';
+    html += '<div class="team-row">';
+    if (p.logoCasa) html += '<img src="' + p.logoCasa + '" class="compact-logo">';
+    html += '<span>' + casa + '</span>';
+    html += '</div>';
+
+    html += '<div class="team-row">';
+    if (p.logoTrasferta) html += '<img src="' + p.logoTrasferta + '" class="compact-logo">';
+    html += '<span>' + trasf + '</span>';
+    html += '</div>';
+    html += '</div>';
+
+    // 1X2
+    html += '<div class="lr-esito-multi">';
+    html += '<div class="multi-bet">' + es1x2 + '</div>';
+    if (perc1x2) html += '<div class="multi-perc">' + perc1x2 + '%</div>';
+    html += '</div>';
+
+    // O/U
+    html += '<div class="lr-esito-multi">';
+    html += '<div class="multi-bet">' + esOU + '</div>';
+    if (percOU) html += '<div class="multi-perc">' + percOU + '%</div>';
+    html += '</div>';
+
+    // G/NG
+    html += '<div class="lr-esito-multi">';
+    html += '<div class="multi-bet">' + esGN + '</div>';
+    if (percGN) html += '<div class="multi-perc">' + percGN + '%</div>';
+    html += '</div>';
+
+    html += '</div>';
+  });
+
+  c.innerHTML = html;
+}
+
+
+
+
+
+function displayRisultati(data, prefix) {
+    const c = document.getElementById('risultati-content');
+    if (!data.risultati || data.risultati.length === 0) { 
+        c.innerHTML = `<div class="card"><div class="card-body text-center text-secondary">Nessun risultato recente.</div></div>`; 
+        return; 
+    }
+    
+    let html = `<h3 class="section-title" style="font-size: 1.3rem; color: var(--text-secondary); border: none;">Ultimo Turno: Giornata ${data.giornata}</h3>`;
+    html += '<div class="table-container"><table class="table"><thead><tr>';
+    html += '<th>Partita</th><th class="text-center">Risultato</th><th class="text-center">Esito</th><th class="text-center">1° Tempo</th>';
+    html += '</tr></thead><tbody>';
+    
+    data.risultati.forEach(r => {
+        html += `<tr>`;
+        html += `<td><div class="text-strong">${r.casa} - ${r.trasferta}</div><div style="font-size: 0.8rem; color: var(--text-secondary);">${r.data}</div></td>`;
+        html += `<td class="text-center text-strong">${r.risultato}</td>`;
+        html += `<td class="text-center text-strong ${r.esito === '1' ? 'text-green' : r.esito === '2' ? 'text-red' : 'text-gold'}">${r.esito}</td>`;
+        html += `<td class="text-center text-secondary">${r.parziale}</td>`;
+        html += `</tr>`;
+    });
+    
+    html += '</tbody></table></div>';
+    c.innerHTML = html;
+}
+
+function displayClassifichePerCampionato(prefix) {
+    const c = document.getElementById('classifiche-content');
+    const camp = cache.classifiche[prefix];
+    
+    if (!camp || !camp.generale?.length) {
+        c.innerHTML = `<div class="card"><div class="card-body text-center text-secondary">Classifica non disponibile.</div></div>`;
+        return;
+    }
+    
+    let html = `<div class="card">
+        <div class="card-header"><h3 class="card-title">${camp.nome}</h3></div>
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th><th>Squadra</th><th>Pt</th><th>G</th>
+                        <th>V</th><th>N</th><th>P</th><th>DR</th><th>Forma</th>
+                    </tr>
+                </thead>
+                <tbody>`;
+    
+    camp.generale.forEach(t => {
+        html += `<tr>
+            <td class="text-strong">${t.posizione}</td>
+            <td>${t.squadra}</td>
+            <td class="text-strong text-gold">${t.punti}</td>
+            <td>${t.partite}</td>
+            <td class="text-green">${t.vinte}</td>
+            <td>${t.pareggiate}</td>
+            <td class="text-red">${t.perse}</td>
+            <td class="${t.differenzaReti > 0 ? 'text-green' : t.differenzaReti < 0 ? 'text-red' : ''}">${t.differenzaReti}</td>
+            <td style="font-size: 0.8rem;">${t.forma || '-----'}</td>
+        </tr>`;
+    });
+    
+    html += '</tbody></table></div></div>';
+    c.innerHTML = html;
+}
+
+function displayStatistiche(data) {
+  
+  const c = document.getElementById(containerId);
+  if (!c) return;
+
+  if (!data || (data.marcatori.length === 0 && data.assist.length === 0 && data.cartellini.length === 0)) {
+    c.innerHTML = `
+      <div class="card">
+        <div class="card-body text-center">
+          <div class="text-secondary">Nessun dato disponibile.</div>
+          <button class="btn" onclick="generaPrevisioniManualmente()" 
+                  style="margin-top: 1rem; background: var(--accent-gold); color: var(--bg-primary);">
+            🔄 Genera Previsioni
+          </button>
+        </div>
+      </div>`;
+    return;
+  }
+
+  let html = '<div class="stats-grid">';
+
+  const sections = [
+    { 
+      title: '⚽ Probabili Marcatori',
+      data: data.marcatori,
+      value: 'Gol',
+      color: 'text-green',
+      extra: (g) => `xG: ${g.xG || '0'}`
+    },
+    { 
+      title: '🎯 Probabili Assistman',
+      data: data.assist,
+      value: 'Ast',
+      color: 'text-green',
+      extra: (g) => `xA: ${g.xA || '0'}`
+    },
+    { 
+      title: '🟨 Probabili Cartellini',
+      data: data.cartellini,
+      value: 'Gialli',
+      color: 'text-gold',
+      extra: (g) => `Falli: ${g.falliCommessi || 0}`
+    }
+  ];
+
+  sections.forEach(s => {
+    if (s.data.length > 0) {
+      html += `
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">${s.title}</h3>
+          </div>
+          <div class="card-body" style="padding:0;">
+            <table class="table">
+              <tbody>`;
+
+      s.data.slice(0, 5).forEach(g => {
+      
+        html += `
+<tr>
+  <td style="display:flex; align-items:center; gap:12px; padding:10px;">
+    
+        
+    <div>
+      <div class="text-strong">${g.giocatore}</div>
+
+      <div style="font-size: 0.8rem; color: var(--text-secondary);">
+        ${g.squadra} | ${g.partita}
+      </div>
+
+      <div style="font-size: 0.7rem; color: var(--text-secondary);">
+        ${s.extra(g)}
+      </div>
+    </div>
+
+  </td>
+
+  <td class="text-center text-strong ${s.color}"
+      style="white-space:nowrap; font-size:1rem;">
+      ${g.probabilita}
+  </td>
+
+  <td class="text-center text-secondary" style="white-space:nowrap;">
+      ${g.stats} ${s.value}
+  </td>
+</tr>`;
+      });
+
+      html += `
+              </tbody>
+            </table>
+          </div>
+        </div>`;
+    }
+  });
+
+  html += '</div>';
+  c.innerHTML = html;
+}
+
+
+function displayStatisticheHome(data, containerId) {
+  const c = document.getElementById(containerId);
+  if (!c) return;
+
+  if (!data || 
+      (data.marcatori.length === 0 &&
+       data.assist.length === 0 &&
+       data.cartellini.length === 0)) {
+
+    c.innerHTML = `
+      <div class="card">
+        <div class="card-body text-center text-secondary">
+          Nessun dato giocatori disponibile.
+        </div>
+      </div>`;
+    return;
+  }
+
+  let html = '<div class="stats-grid">';
+
+  const sections = [
+    { title: '⚽ Marcatori', data: data.marcatori, value: 'Gol' },
+    { title: '🎯 Assist', data: data.assist, value: 'Ast' },
+    { title: '🟨 Cartellini', data: data.cartellini, value: 'Gialli' }
+  ];
+
+  sections.forEach(s => {
+    if (!s.data || s.data.length === 0) return;
+
+    html += `
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">${s.title}</h3>
+        </div>
+        <div class="card-body" style="padding:0">
+          <table class="table"><tbody>`;
+
+    s.data.slice(0, 5).forEach(g => {
+      html += `
+        <tr>
+          <td>${g.giocatore}<br>
+              <small>${g.squadra}</small>
+          </td>
+          <td class="text-center text-strong">${g.probabilita}</td>
+          <td class="text-center">${g.stats} ${s.value}</td>
+        </tr>`;
+    });
+
+    html += `</tbody></table></div></div>`;
+  });
+
+  html += '</div>';
+  c.innerHTML = html;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ========================================
+// ADMIN FUNCTIONS
+// ========================================
+function setupSecretUpdate() {
+    let clicks = 0;
+    const logoArea = document.getElementById('secret-logo-area');
+    
+    if (logoArea) {
+        logoArea.addEventListener('click', () => { 
+            if (++clicks >= 5) { 
+                document.getElementById('admin-panel').style.display = 'flex'; 
+                alert('✅ Modalità Professore Attivata!'); 
+                clicks = 0; 
+            }
+        });
+    }
+    
+    // Setup tutti i pulsanti admin
+    setupAdminButtons();
+     const btnApprendimento = document.getElementById('btn-admin-apprendimento');
+  
+}
+
+
+// ========================================
+// ADMIN PANEL - GESTIONE ATTIVATORI
+// ========================================
+
+function setupAdminButtons() {
+    // GRUPPO 1: DATI BASE
+    setupAdminBtn('btn-admin-risultati', 'att_1a_ImportaRisultati', 
+        'Importare i risultati delle ultime partite?', '📊 Risultati aggiornati!');
+    
+    setupAdminBtn('btn-admin-storico', 'att_1b_AggiornaStorico', 
+        'Aggiornare lo storico con i risultati reali?', '📈 Storico aggiornato!');
+    
+    // GRUPPO 2: CLASSIFICHE E STATS
+    setupAdminBtn('btn-admin-classifiche', 'att_2a_ImportaClassifiche', 
+        'Importare le classifiche aggiornate?', '🏆 Classifiche aggiornate!');
+    
+    setupAdminBtn('btn-admin-stats-a', 'att_2b_StatisticheSerieA', 
+        'Importare statistiche Serie A?', '⚽ Statistiche Serie A importate!');
+    
+    setupAdminBtn('btn-admin-stats-b', 'att_2c_StatisticheSerieB', 
+        'Importare statistiche Serie B?', '🥈 Statistiche Serie B importate!');
+    
+    setupAdminBtn('btn-admin-stats-ucl', 'att_2d_StatisticheChampions', 
+        'Importare statistiche Champions?', '🏆 Statistiche Champions importate!');
+    
+    // GRUPPO 3: CALENDARIO
+    setupAdminBtn('btn-admin-calendario', 'att_3a_ImportaCalendario', 
+        'Importare il calendario delle prossime partite?', '📅 Calendario aggiornato!');
+    
+    setupAdminBtn('btn-admin-assenti', 'att_3b_AggiornaCacheAssenti', 
+        'Aggiornare la cache degli assenti?', '🏥 Cache assenti aggiornata!');
+    
+    // GRUPPO 4: AI E PRONOSTICI
+    setupAdminBtn('btn-admin-ml', 'att_4a_MachineLearning', 
+        'Eseguire l\'analisi Machine Learning per tutti i campionati?', '🤖 Machine Learning completato!');
+    
+    setupAdminBtn('btn-admin-pronostici', 'att_4b_PronosticiAvanzati', 
+        'Generare i pronostici avanzati?', '🎯 Pronostici generati!');
+    
+    setupAdminBtn('btn-admin-previsioni', 'att_4c_PrevisioniGiocatori', 
+        'Generare le previsioni per i giocatori?', '👤 Previsioni giocatori generate!');
+    
+    setupAdminBtn('btn-admin-misterx', 'att_5_MisterX', 
+        'Calcolare Mister X?', '🎭 Mister X calcolato!');
+    
+    // SEQUENZE COMPLETE
+    const btnSequenzaManuale = document.getElementById('btn-admin-sequenza-manuale');
+    if (btnSequenzaManuale) {
+        btnSequenzaManuale.onclick = async function() {
+            if (!confirm('⚠️ SEQUENZA COMPLETA MANUALE\n\n' +
+                'Questa operazione eseguirà tutti i 12 step in sequenza.\n' +
+                'Può richiedere 2-5 minuti e potrebbe andare in timeout.\n\n' +
+                'Preferisci usare la Sequenza Automatica?\n\n' +
+                'OK = Continua Manuale | Annulla = Ferma')) return;
+            
+            this.disabled = true;
+            this.textContent = '🔄 Esecuzione in corso...';
+            
+            try {
+                await runGAS('eseguiSequenzaManuale');
+                alert('✅ Sequenza completata!\n\nControlla i log per il riepilogo dettagliato.');
+                clearCache();
+                showSection(state.activeSection);
+            } catch(e) {
+                alert('❌ Errore:\n' + e.message + '\n\nAlcuni step potrebbero essere stati completati.');
+            } finally {
+                this.disabled = false;
+                this.textContent = '⚡ Esegui Sequenza Completa (Manuale)';
+            }
+        };
+    }
+    
+    const btnSequenzaAuto = document.getElementById('btn-admin-sequenza-automatica');
+    if (btnSequenzaAuto) {
+        btnSequenzaAuto.onclick = async function() {
+            if (!confirm('🚀 SEQUENZA AUTOMATICA\n\n' +
+                'Questa operazione programmerà 12 trigger distanziati di 5 minuti.\n' +
+                'Durata totale: ~60 minuti\n\n' +
+                'Ogni step verrà eseguito indipendentemente, evitando timeout.\n\n' +
+                'Vuoi procedere?')) return;
+            
+            this.disabled = true;
+            this.textContent = '⏰ Programmazione...';
+            
+            try {
+                await runGAS('avviaSequenzaAutomatica');
+                alert('✅ Sequenza programmata con successo!\n\n' +
+                      '12 step verranno eseguiti nei prossimi 60 minuti.\n' +
+                      'Puoi monitorare l\'avanzamento in Apps Script > Esecuzioni');
+                clearCache();
+            } catch(e) {
+                alert('❌ Errore nella programmazione:\n' + e.message);
+            } finally {
+                this.disabled = false;
+                this.textContent = '🚀 Avvia Sequenza Automatica (60min)';
+            }
+        };
+    }
+    
+    const btnStato = document.getElementById('btn-admin-stato');
+    if (btnStato) {
+        btnStato.onclick = async function() {
+            this.disabled = true;
+            this.textContent = '📊 Caricamento...';
+            
+            try {
+                await runGAS('mostraStatoAutomazione');
+                alert('✅ Controlla i log in Apps Script per vedere lo stato completo!\n\n' +
+                      'Apps Script > Esecuzioni > Visualizza log');
+            } catch(e) {
+                alert('❌ Errore:\n' + e.message);
+            } finally {
+                this.disabled = false;
+                this.textContent = '📊 Mostra Stato Automazione';
+            }
+        };
+    }
+}
+
+// Helper per configurare un singolo pulsante admin
+function setupAdminBtn(btnId, funcName, confirmMsg, successMsg) {
+    const btn = document.getElementById(btnId);
+    if (!btn) return;
+    
+    btn.onclick = async function() {
+        if (!confirm(confirmMsg)) return;
+        
+        const originalText = this.textContent;
+        this.disabled = true;
+        this.textContent = '⏳ Esecuzione...';
+        
+        try {
+            await runGAS(funcName);
+            alert(successMsg);
+            clearCache();
+            if (['btn-admin-pronostici', 'btn-admin-previsioni'].includes(btnId)) {
+                showSection(state.activeSection);
+            }
+        } catch(e) {
+            alert('❌ Errore:\n' + e.message);
+        } finally {
+            this.disabled = false;
+            this.textContent = originalText;
+        }
+    };
+}
+
+
+
+
+async function runApprendimento(button) {
+    const modal = document.getElementById("modal-apprendimento");
+    const logArea = document.getElementById("modal-log");
+    const loader = document.getElementById("modal-loading");
+    
+    modal.style.display = "flex";
+    loader.style.display = "block";
+    logArea.textContent = "🧠 ANALISI APPRENDIMENTO IN CORSO\n";
+    logArea.textContent += "========================================\n\n";
+    
+    if (button) {
+        button.disabled = true;
+        button.textContent = 'Analisi in corso...';
+    }
+
+    try {
+        const prefixes = ["A", "B", "CA", "CB", "CC"];
+        let risultatiCompleti = [];
+        
+        for (const prefix of prefixes) {
+            logArea.textContent += `\n▶️ Analisi Serie ${prefix}...\n`;
+            
+            try {
+                const result = await runGAS("analizzaApprendimento", prefix);
+                
+                if (result?.success) {
+                    logArea.textContent += `✅ SUCCESSO: ${result.message}\n`;
+                    
+                    if (result.dettagliAnalisi) {
+                        Object.entries(result.dettagliAnalisi).forEach(([key, value]) => {
+                            logArea.textContent += `   📊 ${key}: ${value}\n`;
+                        });
+                    }
+                    
+                    risultatiCompleti.push({
+                        campionato: prefix,
+                        success: true,
+                        dati: result.dettagliAnalisi
+                    });
+                    
+                } else {
+
+logArea.textContent += `⚠️ ATTENZIONE: ${result?.message || "Nessun risultato"}\n`;
+
+
+
+                
+                    if (result?.dettagli) {
+                        logArea.textContent += `   ℹ️ ${result.dettagli}\n`;
+                    }
+                    
+                    risultatiCompleti.push({
+                        campionato: prefix,
+                        success: false,
+                        errore: result?.error || "Unknown error"
+                    });
+                }
+                
+            } catch(err) {
+                logArea.textContent += `❌ ERRORE: ${err.message || err}\n`;
+                risultatiCompleti.push({
+                    campionato: prefix,
+                    success: false,
+                    errore: err.message
+                });
+            }
+            
+            logArea.textContent += "──────────────────────────────\n";
+        }
+        
+        // RIEPILOGO FINALE
+        loader.style.display = "none";
+        logArea.textContent += "\n🏁 RIEPILOGO FINALE\n";
+        logArea.textContent += "========================================\n\n";
+        
+      const serieConDati = risultatiCompleti.filter(r => 
+  r.success && r.dati && parseInt(r.dati["Partite 1X2"]) > 0);
+
+const serieSenzaDati = risultatiCompleti.filter(r => 
+  !r.success || !r.dati || parseInt(r.dati["Partite 1X2"]) === 0);
+
+        
+        logArea.textContent += `✅ SERIE CON DATI: ${serieConDati.length}/${prefixes.length}\n`;
+        serieConDati.forEach(serie => {
+  logArea.textContent += `   • Serie ${serie.campionato}: ${serie.dati["Partite 1X2"]} partite\n`;
+});
+        
+        
+        if (serieSenzaDati.length > 0) {
+            logArea.textContent += `\n❌ SERIE SENZA DATI: ${serieSenzaDati.length}/${prefixes.length}\n`;
+            serieSenzaDati.forEach(serie => {
+                logArea.textContent += `   • Serie ${serie.campionato}: ${serie.errore || "Dati insufficienti"}\n`;
+            });
+        }
+        
+        logArea.textContent += "\n💡 RACCOMANDAZIONI:\n";
+        if (serieConDati.length === 0) {
+            logArea.textContent += "   • Assicurati di aver eseguito 'Aggiorna Turno' per popolare lo Storico.\n";
+        } else if (serieConDati.length < prefixes.length) {
+            logArea.textContent += "   • Alcune serie hanno pochi dati. Attendi le prossime giornate.\n";
+        } else {
+            logArea.textContent += "   • Tutto ok! Il sistema sta imparando correttamente.\n";
+        }
+        
+        clearCache();
+        
+    } catch (err) {
+        loader.style.display = "none";
+        logArea.textContent += `\n💥 ERRORE GENERALE: ${err.message || err}\n`;
+    } finally {
+        if (button) {
+            button.disabled = false;
+            button.textContent = 'Analizza AI';
+        }
+    }
+}
+
+function closeModal() { 
+    document.getElementById("modal-apprendimento").style.display = "none"; 
+}
+
+function clearCache() {
+    cache = { 
+        top5Daily: null, 
+        top5Weekend: null,
+        pronostici: { A: null, B: null, CA: null, CB: null, CC: null }, 
+        risultati: { A: null, B: null, CA: null, CB: null, CC: null }, 
+        classifiche: { A: null, B: null, CA: null, CB: null, CC: null }, 
+        statistiche: { A: null, B: null },
+        socialData: { A: null, B: null, CA: null, CB: null, CC: null }
+    };
+}
+
+// ========================================
+// INIZIALIZZAZIONE FINALE
+// ========================================
+
+console.log('✅ Le Dritte del Prof. - Sistema caricato correttamente');
+console.log('🤖 Machine Learning attivo');
+
+
+function caricaHome(tipo) {
+    if (tipo === 'daily') loadTop5Daily();
+    if (tipo === 'weekend') loadTop5Weekend();
+}
+
+
+function displaySorpreseForma(sorprese) {
+  var c = document.getElementById('sorprese-forma-container');
+  if (!c || !sorprese || !sorprese.length) {
+    if (c) c.style.display = 'none';
+    return;
+  }
+
+  var html = '';
+
+  html += '<div class="list-header">';
+  html += '<div class="lh-data">Data</div>';
+  html += '<div class="lh-partita">Partita</div>';
+  html += '<div class="lh-esito">Esito</div>';
+  html += '</div>';
+
+  sorprese.forEach(function(p) {
+
+    var parts = (p.partita || '').split(' - ');
+    var casa = parts[0] || '';
+    var trasf = parts[1] || '';
+
+    var data = '';
+    var ora = '';
+
+    if (p.data && p.data.indexOf(' ') > -1) {
+      var d = p.data.split(' ');
+      data = d[0] || '';
+      ora = d[1].substring(0, 5);
+    } else if (p.data) {
+      ora = p.data.substring(0, 5);
+    }
+
+    var bestLabel = p.bestLabel || '';
+
+    html += '<div class="list-row">';
+
+    html += '<div class="lr-data">';
+    html += (data ? data.substring(0, 5) : '') + '<br>' + ora;
+    html += '</div>';
+
+    html += '<div class="lr-partita">';
+    html += '<div class="team-row">';
+    if (p.logoCasa) {
+      html += '<img src="' + p.logoCasa + '" class="compact-logo">';
+    }
+    html += '<span>' + casa + '</span>';
+    html += '</div>';
+
+    html += '<div class="team-row">';
+    if (p.logoTrasferta) {
+      html += '<img src="' + p.logoTrasferta + '" class="compact-logo">';
+    }
+    html += '<span>' + trasf + '</span>';
+    html += '</div>';
+    html += '</div>';
+
+    html += '<div class="lr-esito">';
+    html += '<div class="compact-bet">' + bestLabel + '</div>';
+    html += '</div>';
+
+    html += '</div>';
+  });
+
+  html += '<div class="prof-footer">';
+  html += '<img src="https://lh3.googleusercontent.com/d/1lmKYeW8AavhBtnRwQIDkDiGjN4SOk4LP">';
+  html += '<span>By Le dritte del Prof.</span>';
+  html += '</div>';
+
+  c.innerHTML = html;
+  c.style.display = 'block';
+}
+
+
+
+// ========================================
+// FUNZIONE SCARICA IMMAGINE SEMPLIFICATA
+// ========================================
+
+function scaricaImmagineAutomatica() {
+    const btnScarica = document.getElementById('btn-scarica-immagine');
+    const modalContent = document.getElementById('modal-social-content');
+    
+    if (!btnScarica || !modalContent) {
+        alert('Elementi non trovati');
+        return;
+    }
+    
+    const testoOriginale = btnScarica.textContent;
+    btnScarica.textContent = '🔄 Generando...';
+    btnScarica.disabled = true;
+    
+    html2canvas(modalContent, {
+        backgroundColor: '#0a0a0a',
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        logging: false,
+        width: modalContent.scrollWidth,
+        height: modalContent.scrollHeight,
+        scrollX: 0,
+        scrollY: 0,
+        windowWidth: modalContent.scrollWidth,
+        windowHeight: modalContent.scrollHeight
+    }).then(canvas => {
+        canvas.toBlob(function(blob) {
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.download = `pronostici-prof-${new Date().toISOString().split('T')[0]}.png`;
+            link.href = url;
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            URL.revokeObjectURL(url);
+            
+            btnScarica.textContent = '✅ Scaricato!';
+            btnScarica.style.backgroundColor = 'var(--accent-green)';
+            
+            setTimeout(() => {
+                btnScarica.textContent = testoOriginale;
+                btnScarica.style.backgroundColor = 'var(--accent-gold)';
+                btnScarica.disabled = false;
+            }, 2000);
+            
+        }, 'image/png', 1.0);
+        
+    }).catch(error => {
+        console.error('Errore:', error);
+        alert('Errore nella generazione dell\'immagine. Riprova.');
+        btnScarica.textContent = testoOriginale;
+        btnScarica.disabled = false;
+    });
+}
+// ========================================
+// FUNZIONI PER GRAFICA GIOCATORI
+// ========================================
+
+function openPlayersPreview(tipo) {
+    const modal = document.getElementById("modal-social-preview");
+    const content = document.getElementById("modal-social-content");
+    const prefix = state.socialCampionato;
+    
+    // ✅ Verifica che il campionato supporti statistiche
+    if (!['A', 'B', 'UCL'].includes(prefix)) {
+        alert('❌ Le statistiche giocatori sono disponibili solo per Serie A, Serie B e Champions League');
+        return;
+    }
+    
+    // Nascondi scrollbar
+    document.body.style.overflow = 'hidden';
+    
+    // Titolo modale
+    const titoli = {
+        'marcatori': '⚽ Probabili Marcatori',
+        'assist': '🎯 Probabili Assistman',
+        'cartellini': '🟨 Probabili Cartellini'
+    };
+    
+    const modalTitle = document.querySelector('#modal-social-preview .modal-title');
+    if (modalTitle) {
+        modalTitle.textContent = `🖼️ ${titoli[tipo]} - ${prefix === 'A' ? 'Serie A' : 'Serie B'}`;
+    }
+    
+    // Loading
+    content.innerHTML = `
+        <div class="loading" style="padding: 3rem;">
+            <div class="spinner"></div>
+            <p>Caricamento grafica ${titoli[tipo].toLowerCase()}...</p>
+        </div>`;
+    modal.style.display = "flex";
+
+    // Collega pulsante download
+    const btnScarica = document.getElementById('btn-scarica-immagine');
+    if (btnScarica) {
+        btnScarica.onclick = scaricaImmagineAutomatica;
+    }
+
+    // Chiamata backend
+    runGAS('generaHtmlGiocatori', prefix, tipo)
+        .then(res => {
+            if (res && res.success && res.html) {
+                setTimeout(() => {
+                    content.innerHTML = res.html;
+                    content.style.justifyContent = 'flex-start';
+                    content.style.padding = '30px 20px';
+                }, 100);
+            } else {
+                throw new Error(res.error || "Impossibile generare la grafica.");
+            }
+        })
+        .catch(err => {
+            console.error('Errore openPlayersPreview:', err);
+            content.innerHTML = `
+                <div style="display: flex; align-items: center; justify-content: center; height: 100%; padding: 2rem;">
+                    <div class="card" style="background: var(--accent-red); max-width: 500px;">
+                        <div class="card-body" style="text-align: center;">
+                            <strong>❌ Errore:</strong><br>
+                            ${err.message || err.toString()}<br><br>
+                            <small>Assicurati di aver generato le previsioni giocatori dal menu Statistiche</small>
+                        </div>
+                    </div>
+                </div>`;
+        });
+}
+
+// Aggiorna anche initSocialTabs per gestire solo A e B
+function initSocialTabs() {
+    const socialSection = document.getElementById('social-section');
+    if (!socialSection) return;
+    
+    socialSection.querySelectorAll('.tab-btn').forEach(tab => {
+        tab.addEventListener('click', () => {
+            state.socialCampionato = tab.dataset.campionato;
+            updateActiveTabs('#social-section', state.socialCampionato);
+            
+            // Nascondi pulsanti giocatori SOLO per Serie C e TOP5
+            const playersButtons = socialSection.querySelectorAll('.social-btn[onclick*="Players"]');
+            playersButtons.forEach(btn => {
+                if (['CA', 'CB', 'CC', 'TOP5'].includes(state.socialCampionato)) {
+                    btn.style.opacity = '0.5';
+                    btn.style.cursor = 'not-allowed';
+                    btn.disabled = true;
+                } else {
+                    btn.style.opacity = '1';
+                    btn.style.cursor = 'pointer';
+                    btn.disabled = false;
+                }
+            });
+            
+            // Clear preview
+            document.getElementById('social-preview').style.display = 'none';
+            document.getElementById('copy-social-btn').style.display = 'none';
+        });
+    });
+}
+
+// ========================================
+// MISTER X FUNCTIONS
+// ========================================
+
+/**
+/**
+ * Carica i dati Mister X
+ */
+async function loadMisterX_Home() {
+    const containerId = "home-misterx";
+    const container = document.getElementById(containerId);
+
+    if (!container) return;
+
+    container.innerHTML = `
+        <div class="loading">
+            <div class="spinner"></div>
+            <p>Analisi Mister X in corso...</p>
+        </div>
+    `;
+
+    try {
+        const res = await runGAS("getMisterXForWeb");
+
+        if (res?.success && res.misterx?.length > 0) {
+            displayMisterX(res.misterx, containerId);
+        } else {
+            container.innerHTML = `
+                <div class="card">
+                    <div class="card-body text-center text-secondary">
+                        Nessun Mister X disponibile.
+                    </div>
+                </div>`;
+        }
+
+    } catch (err) {
+        console.error("❌ Errore Mister X:", err);
+        container.innerHTML = `
+            <div class="card">
+                <div class="card-body text-center text-red">
+                    Errore tecnico Mister X
+                </div>
+            </div>`;
+    }
+}
+
+
+/**
+ * Mostra i risultati Mister X
+ */
+function displayMisterX(data) {
+  const listContainer = document.getElementById('misterXList');
+
+  if (!data || !data.misterX || data.misterX.length === 0) {
+    listContainer.innerHTML = `
+      <div class="card">
+        <div class="card-body text-center">
+          🎯 Nessun Mister X disponibile al momento
+        </div>
+      </div>`;
+    return;
+  }
+
+  // Filtra solo partite future
+  const oggi = new Date();
+  oggi.setHours(0, 0, 0, 0);
+
+  const xFuture = data.misterX.filter(x => {
+    if (!x.data) return true;
+    const parts = x.data.split(/[,\s:]+/);
+    if (parts.length >= 1) {
+      const d = parts[0].split('/');
+      if (d.length === 3) {
+        const dataPartita = new Date(d[2], d[1] - 1, d[0]);
+        return dataPartita >= oggi;
+      }
+    }
+    return true;
+  });
+
+  if (xFuture.length === 0) {
+    listContainer.innerHTML = `
+      <div class="card">
+        <div class="card-body text-center">
+          🎯 Nessuna X futura disponibile
+        </div>
+      </div>`;
+    return;
+  }
+
+  let html = '';
+
+  xFuture.forEach(x => {
+    const [casa, trasf] = x.partita.split(' - ');
+
+    // ✅ Percentuale sicura
+    const perc = parseFloat(String(x.probX || x.percentuale || 0).replace('%','')) || 0;
+
+    html += `
+      <div class="prediction-card">
+
+        <div class="prediction-header">
+          <span>${x.data || ''}</span>
+          <span>${x.campionato || ''}</span>
+        </div>
+
+        <div class="prediction-match-row">
+
+          <div class="team-block">
+            ${x.logoCasa ? `<img class="team-logo" src="${x.logoCasa}">` : ''}
+            <div class="team-name">${casa}</div>
+          </div>
+
+          <div class="bestbet-box">
+            <div class="bestbet-value">X</div>
+            <div class="bestbet-perc">${perc > 0 ? perc.toFixed(0) + '%' : '—'}</div>
+          </div>
+
+          <div class="team-block">
+            ${x.logoTrasferta ? `<img class="team-logo" src="${x.logoTrasferta}">` : ''}
+            <div class="team-name">${trasf}</div>
+          </div>
+
+        </div>
+
+      </div>
+    `;
+  });
+
+  listContainer.innerHTML = html;
+}
+
+
+
+
+// ================================
+// PROSSIME PARTITE
+// ================================
+
+const SHEET_BASE = "https://opensheet.elk.sh/1jP12u6u9fZkzfLAfvsBKTKkiBgartzhCCk3CKCFcR7Q";
+const LOGO_BASE  = "https://media.api-sports.io/football/teams/";
+
+// ✅ CLASSI CAMPIONATO
+
+
+function classeCampionato(nome) {
+  if (!nome) return "";
+  nome = nome.toLowerCase();
+  if (nome.includes("serie a")) return "campionato-seriea";
+  if (nome.includes("serie b")) return "campionato-serieb";
+  if (nome.includes("serie c")) return "campionato-seriec";
+  if (nome.includes("champions")) return "campionato-champions";
+  return "";
+}
+
+
+// ✅ FORMATTA DATA e ORA DA DATA_ISO
+function formatDataOra(iso) {
+  if (!iso) return "";
+  const d = new Date(iso);
+
+  const giorno = String(d.getDate()).padStart(2, "0");
+  const mese   = String(d.getMonth() + 1).padStart(2, "0");
+  const anno   = d.getFullYear();
+  const ore    = String(d.getHours()).padStart(2, "0");
+  const min    = String(d.getMinutes()).padStart(2, "0");
+
+  return `${giorno}/${mese}/${anno} • ${ore}:${min}`;
+}
+
+
+
+function getLogoBySquadra(nomeSquadra) {
+  return ""; // ✅ Disattivata ricerca logo da cache che non esiste nello scope
+}
+
+
+
+
+function displayRisultatiEsattiHome(lista) {
+  const container = document.getElementById("home-risultati");
+
+  if (!container) {
+    console.error("Container non trovato: home-risultati");
+    return;
+  }
+
+  if (!Array.isArray(lista) || lista.length === 0) {
+    container.innerHTML = `
+      <div class="card">
+        <div class="card-body text-center text-secondary">
+          Nessun risultato esatto disponibile.
+        </div>
+      </div>`;
+    return;
+  }
+
+  let html = `
+    <div class="list-header">
+      <div class="lh-data">Data</div>
+      <div class="lh-partita">Partita</div>
+      <div class="lh-esito">Esatto</div>
+    </div>
+  `;
+
+  lista.forEach(r => {
+
+    const [casa, trasf] = (r.partita || "").split(" - ");
+
+    // 📅 DATA SENZA ANNO E SENZA SECONDI
+    let dataTxt = "";
+    let oraTxt = "";
+
+    if (r.dataISO) {
+      const d = new Date(r.dataISO);
+      dataTxt = d.toLocaleDateString("it-IT", { day: "2-digit", month: "2-digit" });
+      oraTxt  = d.toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" });
+    }
+    console.log("RISULTATI ESATTI HOME:", lista);
+    html += `
+      <div class="list-row">
+
+        <div class="lr-data">${dataTxt} - ${oraTxt}</div>
+
+        <div class="lr-partita">
+          <div class="team-row">
+            ${r.logoCasa ? `<img src="${r.logoCasa}" class="compact-logo">` : ""}
+            <span>${casa || ""}</span>
+          </div>
+          <div class="team-row">
+            ${r.logoTrasferta ? `<img src="${r.logoTrasferta}" class="compact-logo">` : ""}
+            <span>${trasf || ""}</span>
+          </div>
+          <div style="font-size:11px; color:#64748b;">
+            ${r.campionato || ""}
+          </div>
+        </div>
+
+        <div class="lr-esito">
+          <div class="compact-bet">${r.risultato || r.esatto || "—"}</div>
+        </div>
+
+      </div>
+    `;
+  });
+
+  html += `
+    <div class="prof-footer">
+      <img src="https://lh3.googleusercontent.com/d/1lmKYeW8AavhBtnRwQIDkDiGjN4SOk4LP">
+      <span>By Le dritte del Prof.</span>
+    </div>
+  `;
+
+  container.innerHTML = html;
+}
+
+
+
+
+
+async function loadRisultatiEsatti() {
+  const container = document.getElementById("home-risultati");
+
+  if (!container) {
+    console.error("home-risultati non trovato");
+    return;
+  }
+
+  container.innerHTML = `
+    <div class="loading">
+      <p>⏳ Caricamento Risultati Esatti...</p>
+    </div>
+  `;
+
+  try {
+    const res = await runGAS("getRisultatiEsattiForWeb");
+
+    console.log("RIS ESATTI RAW:", res); // 🔥 LOG FONDAMENTALE
+
+    // ✅ NORMALIZZAZIONE TOTALE
+    let lista = [];
+
+    if (Array.isArray(res)) {
+      lista = res;
+    } else if (Array.isArray(res?.data)) {
+      lista = res.data;
+    } else if (Array.isArray(res?.risultati)) {
+      lista = res.risultati;
+    }
+
+    displayRisultatiEsattiHome(lista);
+
+  } catch (err) {
+    console.error("Errore Risultati Esatti:", err);
+    container.innerHTML = `
+      <div class="card">
+        <div class="card-body text-center text-secondary">
+          Errore caricamento Risultati Esatti
+        </div>
+      </div>`;
+  }
+}
+
+
+
+async function loadComboConsigliate() {
+    const containerId = "home-combo";
+    setLoading(containerId, "Analisi combo in corso...");
+
+    try {
+        console.log("📡 Chiamata GAS combo...");
+        const res = await runGAS("getComboConsigliateForWeb");
+        console.log("📥 Risposta GAS:", res);
+
+        if (res?.success && Array.isArray(res.combo) && res.combo.length > 0) {
+            displayComboConsigliate(res.combo, containerId);
+        } else {
+            document.getElementById(containerId).innerHTML =
+                `<div class="card"><div class="card-body text-center text-secondary">
+                    Nessuna combo disponibile.
+                 </div></div>`;
+        }
+    } catch (err) {
+        console.error("❌ Errore combo:", err);
+        document.getElementById(containerId).innerHTML =
+            `<div class="card"><div class="card-body text-center text-red">
+                Errore tecnico combo
+             </div></div>`;
+    }
+}
+
+
+
+function displayRisultatiEsattiHome(lista) {
+  const container = document.getElementById("home-risultati");
+
+  if (!container) {
+    console.error("Container non trovato: home-risultati");
+    return;
+  }
+
+  if (!Array.isArray(lista) || lista.length === 0) {
+    container.innerHTML = `
+      <div class="card">
+        <div class="card-body text-center text-secondary">
+          Nessun risultato esatto disponibile.
+        </div>
+      </div>`;
+    return;
+  }
+
+  let html = `
+    <div class="list-header">
+      <div class="lh-data">Data</div>
+      <div class="lh-partita">Partita</div>
+      <div class="lh-esito">Risultato</div>
+    </div>
+  `;
+
+  lista.forEach(r => {
+
+    const [casa, trasf] = (r.partita || "").split(" - ");
+
+    html += `
+      <div class="list-row">
+
+        <!-- DATA -->
+        <div class="lr-data">  ${r.data? r.data.replace(/\/\d{4},/, "").replace(",", " -"): ""}</div>
+
+        <!-- PARTITA -->
+        <div class="lr-partita">
+          <div class="team-row">
+            <span>${casa || ""}</span>
+          </div>
+          <div class="team-row">
+            <span>${trasf || ""}</span>
+          </div>
+          <div style="font-size:11px; color:#64748b;">
+            ${r.campionato || ""}
+          </div>
+        </div>
+
+        <!-- RISULTATO ESATTO -->
+        <div class="lr-esito">
+          <div class="compact-bet">${r.risultato || "—"}</div>
+        </div>
+
+      </div>
+    `;
+  });
+
+  html += `
+    <div class="prof-footer">
+      <img src="https://lh3.googleusercontent.com/d/1lmKYeW8AavhBtnRwQIDkDiGjN4SOk4LP">
+      <span>By Le dritte del Prof.</span>
+    </div>
+  `;
+
+  container.innerHTML = html;
+}
+
+
+
+
+
+
+
+
+
+function displayComboConsigliate(lista) {
+    const container = document.getElementById("comboList");
+    if (!container) return;
+
+    let html = `
+        <div class="list-header">
+            <div class="lh-data">Data</div>
+            <div class="lh-partita">Partita</div>
+            <div class="lh-esito">Combo</div>
+        </div>
+    `;
+
+    lista.forEach((c, i) => {
+        const [casa, trasf] = c.partita.split(" - ");
+        
+        // data + ora
+        let dataTxt = "";
+        let oraTxt = "";
+        if (c.data.includes(" ")) {
+            const parts = c.data.split(" ");
+            dataTxt = parts[0].substring(0, 5);
+            oraTxt = parts[1].substring(0, 5);
+        }
+
+        const perc = c.percentuale || (c.score * 100).toFixed(2) + "%";
+
+        html += `
+            <div class="list-row">
+
+                <div class="lr-data">${dataTxt} - ${oraTxt}</div>
+
+                <div class="lr-partita">
+                    <div class="team-row"><span>${casa}</span></div>
+                    <div class="team-row"><span>${trasf}</span></div>
+                </div>
+
+               <div class="lr-esito combo-cell">
+                  <span class="combo-pill">${c.combo}</span>
+                  <div class="mini-perc">${perc}</div>
+              </div>
+
+            </div>
+        `;
+    });
+
+    html += `
+        <div class="prof-footer">
+            <img src="https://lh3.googleusercontent.com/d/1lmKYeW8AavhBtnRwQIDkDiGjN4SOk4LP">
+            <span>By Le dritte del Prof.</span>
+        </div>
+    `;
+
+    container.innerHTML = html;
+}
+
+
+// =======================
+// PROSSIME PARTITE - LOADER
+// =======================
+
+
+function caricaProssime(prefix) {
+  console.log("▶ caricaProssime:", prefix);
+
+  const content = document.getElementById("prossime-content");
+  const loading  = document.getElementById("prossime-loading");
+
+  if (!content || !loading) {
+    console.warn("⚠ prossime-content o prossime-loading non presenti in questa sezione");
+    return;
+  }
+  content.innerHTML = "";
+  loading.style.display = "block";
+
+  // Tab attiva
+  document
+    .querySelectorAll("#prossime-partite-section .tab-btn")
+    .forEach(btn => btn.classList.remove("active"));
+
+  const activeBtn = document.querySelector(
+    `#prossime-partite-section .tab-btn[data-sheet='${prefix}']`
+  );
+  if (activeBtn) activeBtn.classList.add("active");
+
+  const sheetName = encodeURIComponent(prefix + " - Prossime Partite");
+  const url = `${SHEET_BASE}/${sheetName}`;
+
+  console.log("🌐 FETCH:", url);
+
+  fetch(url)
+    .then(res => {
+      console.log("✅ STATUS:", res.status);
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      return res.json();
+    })
+    .then(data => {
+      console.log("✅ DATI:", data);
+
+      if (!Array.isArray(data) || data.length === 0) {
+        content.innerHTML = "<p class='text-center'>Nessuna partita disponibile</p>";
+        return;
+      }
+
+      data.sort((a, b) => new Date(a.DATA_ISO) - new Date(b.DATA_ISO));
+
+ data.forEach(match => {
+  const card = document.createElement("div");
+  const cls  = classeCampionato(match.Campionato);
+  card.className = "card " + cls;
+
+  const logoCasa =
+    match["Logo Casa"] || getLogoBySquadra(match.Casa) || "";
+
+  const logoTrasferta =
+    match["Logo Trasferta"] || getLogoBySquadra(match.Trasferta) || "";
+
+  const logoCasaHTML = logoCasa
+    ? `<img src="${logoCasa}" class="prossime-logo" onerror="this.style.display='none'">`
+    : "";
+
+  const logoTrasfHTML = logoTrasferta
+    ? `<img src="${logoTrasferta}" class="prossime-logo" onerror="this.style.display='none'">`
+    : "";
+
+  card.innerHTML = `
+    <div class="prossima-row">
+      <div class="prossima-sinistra">
+        ${logoCasaHTML}
+        <span class="prossima-squadra">${match.Casa}</span>
+
+        <span class="prossima-vs">-</span>
+
+        ${logoTrasfHTML}
+        <span class="prossima-squadra">${match.Trasferta}</span>
+      </div>
+
+      <div class="prossima-destra">
+        ${formatDataOra(match.DATA_ISO)} • Giornata ${match.Giornata}
+      </div>
+    </div>
+  `;
+
+  content.appendChild(card);
+});
+
+    })
+    .catch(err => {
+      console.error("❌ ERRORE FETCH:", err);
+      content.innerHTML = "<p class='text-center text-red'>Errore caricamento partite</p>";
+    })
+    .finally(() => {
+      // ✅ BLOCCO DEFINITIVO DEL LOADER
+      loading.style.display = "none";
+      console.log("✅ Loader spento forzatamente");
+    });
+}
+
+console.log("✅ JS CARICATO CORRETTAMENTE");
+
+
+  document.querySelectorAll("#prossime-partite-section .tab-btn")
+    .forEach(btn => {
+      btn.addEventListener("click", () => {
+        const prefix = btn.dataset.sheet;
+        loadProssime(prefix);
+      });
+    });
+
+
+async function loadTop1X2Weekend_Home() {
+  const container = document.getElementById("home-1x2-weekend");
+  if (!container) return;
+
+  container.innerHTML = `<div class="loading">Analisi 1X2 Weekend...</div>`;
+
+  try {
+    const res = await runGAS("getTop1X2WeekendForWeb");
+    displayTop1X2Weekend_Home(res); // ✅ PASSI TUTTO
+  } catch (err) {
+    container.innerHTML = `
+      <div class="card">
+        <div class="card-body text-center text-red">
+          Errore caricamento 1X2
+        </div>
+      </div>`;
+  }
+}
+
+
+function displayTop1X2Weekend_Home(res) {
+  const container = document.getElementById("home-1x2-weekend");
+
+  if (!container) {
+    console.error("Container non trovato: home-1x2-weekend");
+    return;
+  }
+
+ if (!res || !res.success || !res.top || (Array.isArray(res.top) && res.top.length === 0)) {
+    container.innerHTML = `
+      <div class="card">
+        <div class="card-body text-center text-secondary">
+          Nessun 1X2 forte disponibile per il weekend.
+        </div>
+      </div>`;
+    return;
+  }
+
+  // Normalizza: singolo o array
+  const lista = Array.isArray(res.top) ? res.top : [res.top];
+
+  let html = `
+    <div class="list-header">
+      <div class="lh-data">Data</div>
+      <div class="lh-partita">Partita</div>
+      <div class="lh-esito">1X2</div>
+    </div>
+  `;
+
+  lista.forEach(p => {
+
+    const [casa, trasf] = (p.partita || "").split(" - ");
+
+    // DATA SENZA ANNO E SENZA SECONDI
+    let dataTxt = "";
+    let oraTxt = "";
+    if (p.dataISO) {
+      const d = new Date(p.dataISO);
+      dataTxt = d.toLocaleDateString("it-IT", { day: "2-digit", month: "2-digit" });
+      oraTxt  = d.toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" });
+    }
+
+    html += `
+      <div class="list-row">
+
+        <!-- DATA -->
+        <div class="lr-data">${dataTxt} - ${oraTxt}</div>
+
+        <!-- PARTITA -->
+        <div class="lr-partita">
+          <div class="team-row">
+            ${p.logoCasa ? `<img src="${p.logoCasa}" class="compact-logo">` : ""}
+            <span>${casa || ""}</span>
+          </div>
+          <div class="team-row">
+            ${p.logoTrasferta ? `<img src="${p.logoTrasferta}" class="compact-logo">` : ""}
+            <span>${trasf || ""}</span>
+          </div>
+          <div style="font-size:11px; color:#64748b; margin-top:2px;">
+            ${p.campionato || ""}
+          </div>
+        </div>
+
+        <!-- ESITO -->
+        <div class="lr-esito">
+          <div class="compact-bet">${p.bestEsito || p.esito || "—"}</div>
+        </div>
+
+      </div>
+    `;
+  });
+
+  html += `
+    <div class="prof-footer">
+      <img src="https://lh3.googleusercontent.com/d/1lmKYeW8AavhBtnRwQIDkDiGjN4SOk4LP">
+      <span>By Le dritte del Prof.</span>
+    </div>
+  `;
+
+  container.innerHTML = html;
+}
+
+console.log("FINE FILE OK");
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(() => console.log('Service Worker OK'))
+      .catch(err => console.error('SW error', err));
+  });
+}
+</script>
+</body>
+  </html>
