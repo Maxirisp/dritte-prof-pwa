@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#014f86">
-
-
-
     <!-- ========================================
          LIBRERIE ESTERNE
          ======================================== -->
@@ -26,7 +20,11 @@
          CSS STYLES - INIZIO
          ======================================== -->
 <style>
-
+html, body {
+  overflow: auto !important;
+  height: auto !important;
+  min-height: 100vh;
+}
 /* ===============================
    VARIABILI GLOBALI
 ================================ */
@@ -1050,10 +1048,391 @@ header, nav, main, aside {
 }
 
 
-#classifiche-content table tbody tr td:nth-child(3) {
-  color: var(--accent-red);
+/* Card Cartellini */
+.cartellini-card {
+  background: white;
+  border-radius: 16px;
+  padding: 0;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid #e0e0e0;
+}
+
+.cartellini-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+/* Header */
+.cartellini-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e0e0e0;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.header-left {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.data-badge, .arbitro-badge {
+  font-size: 13px;
+  color: #495057;
+  font-weight: 500;
+}
+
+.rischio-badge {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Match Info */
+.match-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 20px;
+  background: white;
+  gap: 20px;
+}
+
+.team-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.team-logo-small {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.team-name-big {
+  font-size: 18px;
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 4px;
+}
+
+.team-stat {
+  font-size: 13px;
+  color: #6c757d;
+}
+
+.vs-section {
+  font-size: 14px;
+  font-weight: 700;
+  color: #adb5bd;
+  padding: 0 10px;
+}
+
+/* Previsione Box - SFONDO BIANCO/GRIGIO CHIARO */
+.previsione-box {
+  padding: 20px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.previsione-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  text-align: center;
+  color: #212529;
+}
+
+.previsione-stats {
+  display: flex;
+  justify-content: space-around;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.stat-item {
+  text-align: center;
+  background: white;
+  padding: 12px 8px;
+  border-radius: 12px;
+  flex: 1;
+  transition: all 0.2s;
+  border: 2px solid #e0e0e0;
+}
+
+.stat-item:hover {
+  border-color: #adb5bd;
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.stat-item.highlight {
+  background: #fff3cd;
+  border: 2px solid #ffc107;
+}
+
+.stat-icon {
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 2px;
+  color: #212529;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.previsione-text {
+  text-align: center;
+  font-size: 13px;
+  padding: 10px;
+  background: white;
+  border-radius: 8px;
+  font-weight: 500;
+  color: #495057;
+  border: 1px solid #e0e0e0;
+}
+
+/* Range Box */
+.range-box {
+  padding: 20px;
+  background: white;
+}
+
+.range-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #495057;
+}
+
+.range-bar {
+  position: relative;
+  height: 40px;
+  background: linear-gradient(to right, #28a745, #ffc107, #fd7e14, #dc3545);
+  border-radius: 20px;
+  margin-bottom: 8px;
+}
+
+.range-indicator {
+  position: absolute;
+  top: -8px;
+  transform: translateX(-50%);
+  background: #212529;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.range-indicator::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #212529;
+}
+
+.range-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #6c757d;
+  margin-top: 8px;
+}
+
+.range-estimate {
+  text-align: center;
+  font-size: 13px;
+  color: #495057;
+  margin-top: 12px;
+}
+
+.range-estimate strong {
+  color: #212529;
   font-weight: 700;
 }
+
+/* Giocatori Box */
+.giocatori-box {
+  padding: 20px;
+  background: #fff9e6;
+  border-top: 3px solid #ffc107;
+}
+
+.giocatori-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #856404;
+}
+
+.giocatori-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.giocatore-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: white;
+  padding: 10px 12px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.giocatore-item:hover {
+  transform: translateX(4px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.giocatore-rank {
+  font-size: 16px;
+  font-weight: 700;
+  color: #adb5bd;
+  min-width: 30px;
+}
+
+.giocatore-info {
+  flex: 1;
+}
+
+.giocatore-nome {
+  font-size: 14px;
+  font-weight: 600;
+  color: #212529;
+}
+
+.giocatore-squadra {
+  font-size: 12px;
+  color: #6c757d;
+}
+
+.giocatore-prob {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #212529;
+}
+
+/* Note Box */
+.note-box {
+  padding: 12px 20px;
+  background: #f8f9fa;
+  font-size: 13px;
+  color: #495057;
+  font-style: italic;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .match-info {
+    flex-direction: column;
+  }
+  
+  .vs-section {
+    transform: rotate(90deg);
+    margin: 10px 0;
+  }
+  
+  .previsione-stats {
+    flex-wrap: wrap;
+  }
+  
+  .stat-item {
+    min-width: 70px;
+  }
+}
+
+/* Probabilità Card */
+.probabilita-card {
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  margin-bottom: 12px;
+}
+
+.prob-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.prob-label {
+  font-size: 13px;
+  color: #495057;
+  font-weight: 500;
+}
+
+.prob-value {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.prob-bar-container {
+  height: 12px;
+  background: #e9ecef;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.prob-bar {
+  height: 100%;
+  transition: width 0.5s ease;
+  border-radius: 6px;
+}
+
+.prob-description {
+  font-size: 11px;
+  color: #6c757d;
+  text-align: center;
+  font-style: italic;
+}
+
+.giocatori-subtitle {
+  font-size: 12px;
+  color: #856404;
+  margin-bottom: 12px;
+  font-weight: 400;
+}
+
 
 </style>
 
@@ -1192,27 +1571,40 @@ header, nav, main, aside {
 </section>
 
 
-      
-      <div id="prossime-content"></div>
+ <section class="section" id="cartellini-section" style="display:none;">
+      <div class="card">
+        <div class="card-header">🟨 Cartellini</div>
+        <div class="card-body" id="cartellini"></div>
+      </div>
     </section>
+  
 
-    <section class="section" id="misterx-section">
+  <div id="cartellini-content"></div>
+</section>
+
+    <section class="section" id="misterx-section" style="display:none;">
       <div class="card">
         <div class="card-header">🎯 Mister X</div>
         <div class="card-body" id="misterXList"></div>
       </div>
+
+      <div id="misterX-content"></div>
     </section>
 
 
 <section class="section" id="ris-esatti" style="display:none;">
     <h2 class="section-title">🎯 Risultati Esatti</h2>
     <div id="risEsattiList"></div>
+
+      <div id="ris-esatti-content"></div>
 </section>
 
 
 <section class="section" id="combo" style="display:none;">
     <h2 class="section-title">🎛 Combo Consigliate</h2>
     <div id="comboList"></div>
+
+      <div id="combo-content"></div>
 </section>
 
 
@@ -1282,9 +1674,14 @@ header, nav, main, aside {
      ======================================== -->
 <script>
 
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbxa0NAfqju89IZIJAkjjqQiTwn5QZCOQrP6LmCXrCDU2xrl-ghDTcTX_JxNFlY_wts/exec';
+function resizeIframe() {
+  const height = document.documentElement.scrollHeight;
+  window.parent.postMessage({ height: height, type: 'resize' }, '*');
+}
 
-    
+window.addEventListener('load', resizeIframe);
+window.addEventListener('resize', resizeIframe);
+
 // ========================================
 // GLOBAL STATE & CACHE
 // ========================================
@@ -1343,21 +1740,59 @@ function initNav() {
     });
 }
 
+
+
+
+
+
+
 function initTabs() {
-    document.querySelectorAll('.tab-btn').forEach(tab => {
-        tab.addEventListener('click', () => {
-            const sectionId = tab.closest('.section').id;
-            state.activeCampionato = tab.dataset.campionato;
-            updateActiveTabs(`#${sectionId}`, state.activeCampionato);
-            
-            if (sectionId.includes('pronostici')) loadPronostici(state.activeCampionato);
-            else if (sectionId.includes('risultati')) loadRisultati(state.activeCampionato);
-            else if (sectionId.includes('classifiche')) loadClassifichePerCampionato(state.activeCampionato);
-            else if (sectionId.includes('statistiche')) loadStatistiche();
-            else if (sectionId.includes('cartellini')) loadCartellini(state.activeCampionato);
+  document.querySelectorAll('.tab-btn').forEach(tab => {
+    tab.addEventListener('click', () => {
+
+      const section = tab.closest('.section');
+      if (!section) return;
+
+      const sectionId = section.id;
+      state.activeCampionato = tab.dataset.campionato;
+
+      updateActiveTabs(`#${sectionId}`, state.activeCampionato);
+
+      if (sectionId.includes('pronostici')) {
+        loadPronostici(state.activeCampionato);
+
+      } else if (sectionId.includes('risultati')) {
+        loadRisultati(state.activeCampionato);
+
+      } else if (sectionId.includes('classifiche')) {
+        loadClassifichePerCampionato(state.activeCampionato);
+
+      } else if (sectionId.includes('statistiche')) {
+        loadStatistiche();
+
+      } else if (sectionId.includes('cartellini')) {
+        // ⬇️ attende il rendering del tab
+        requestAnimationFrame(() => {
+          const container = document.getElementById('cartellini-content');
+          if (container) {
+            loadCartellini(state.activeCampionato);
+          } else {
+            console.warn('cartellini-content non presente nel DOM');
+          }
         });
+      }
+
     });
+  });
 }
+
+
+
+
+
+
+
+
 
 function initHomeToggles() {
   document.querySelectorAll('.home-toggle-btn').forEach(btn => {
@@ -1449,7 +1884,7 @@ function initHomeToggles() {
 
         case "cartellini":
         document.getElementById("home-cartellini").style.display = "block";
-        loadCartellini_Home();
+        loadCartellini(state.activeCampionato);
         break;
 
         case "giocatori":
@@ -1868,130 +2303,310 @@ async function loadGiocatori_Home() {
 
 
 
+
 function displayCartellini(list) {
   const container = document.getElementById("cartellini-content");
 
   if (!list || !list.length) {
-    container.innerHTML = `
-      <div class="card">
-        <div class="card-body text-center">
-          Nessuna previsione cartellini disponibile.
-        </div>
-      </div>`;
+    container.innerHTML = '<div class="card"><div class="card-body text-center">Nessuna previsione cartellini disponibile.</div></div>';
     return;
   }
 
-  let html = ''; 
-
+  container.innerHTML = '';
+  
   list.forEach(p => {
-    const [casa, trasf] = p.partita.split(' - ');
-    const perc = parseFloat(String(p.prob).replace('%','')) || 0;
+    const card = createCartelliniCard(p);
+    container.appendChild(card);
+  });
+}
 
-    html += `
-      <div class="prediction-card">
+function createCartelliniCard(p) {
+  const card = document.createElement('div');
+  card.className = 'cartellini-card';
+  
+  const casa = p.casa || p.partita?.split(' - ')[0] || 'N/D';
+  const trasf = p.trasferta || p.partita?.split(' - ')[1] || 'N/D';
+  
+  const cartelliniTotali = Number(p.cartelliniTotali) || 0;
+  const gialli = Number(p.gialli) || 0;
+  const rossi = Number(p.rossi) || 0;
+  const probabilitaMedia = Number(p.probabilitaMedia) || 0;
+  const livelloRischio = p.livelloRischio || 'MEDIO';
+  const arbitro = p.arbitro || 'N/D';
+  const severita = p.severitaArbitro || 'NORMALE';
+  
+  // Colori
+  let badgeColor = '#28a745';
+  let badgeBg = '#d4edda';
+  if (livelloRischio === 'MEDIO') {
+    badgeColor = '#ffc107';
+    badgeBg = '#fff3cd';
+  } else if (livelloRischio === 'ALTO') {
+    badgeColor = '#fd7e14';
+    badgeBg = '#ffe5d0';
+  } else if (livelloRischio === 'MOLTO ALTO') {
+    badgeColor = '#dc3545';
+    badgeBg = '#f8d7da';
+  }
+  
+  // ✅ Testo più chiaro
+  let spiegazioneRischio = '';
+  if (livelloRischio === 'MOLTO ALTO') {
+    spiegazioneRischio = 'Partita molto nervosa. Attesi numerosi interventi dell\'arbitro.';
+  } else if (livelloRischio === 'ALTO') {
+    spiegazioneRischio = 'Partita tesa. Probabile alto numero di cartellini.';
+  } else if (livelloRischio === 'MEDIO') {
+    spiegazioneRischio = 'Partita nella media. Cartellini in linea con la stagione.';
+  } else {
+    spiegazioneRischio = 'Partita tranquilla. Pochi cartellini attesi.';
+  }
+  
+  // Icona arbitro
+  let arbitroIcon = '👨‍⚖️';
+  if (severita === 'SEVERO' || severita === 'MOLTO SEVERO') {
+    arbitroIcon = '🚨';
+  } else if (severita === 'PERMISSIVO') {
+    arbitroIcon = '😌';
+  }
+  
+  const rangeMin = Math.max(0, cartelliniTotali - 2);
+  const rangeMax = cartelliniTotali + 2;
+  const rangePercent = Math.min(100, (cartelliniTotali / 20) * 100);
 
-        <div class="prediction-header">
-          <span>${p.data}</span>
-          <span>${p.campionato}</span>
+  // Header
+  const header = document.createElement('div');
+  header.className = 'cartellini-header';
+  header.innerHTML = `
+    <div class="header-left">
+      <span class="data-badge">📅 ${p.data || 'Data N/D'}</span>
+      <span class="arbitro-badge">
+        ${arbitroIcon} ${arbitro} 
+        <small style="color: #999; font-weight: 400;">(${severita})</small>
+      </span>
+    </div>
+    <div class="rischio-badge" style="background: ${badgeBg}; color: ${badgeColor};">
+      ${livelloRischio}
+    </div>
+  `;
+  
+  // Match info
+  const matchInfo = document.createElement('div');
+  matchInfo.className = 'match-info';
+  matchInfo.innerHTML = `
+    <div class="team-section">
+      <div>
+        <div class="team-name-big">${casa}</div>
+        <div class="team-stat">${p.cartelliniCasa || 0} cartellini previsti</div>
+      </div>
+    </div>
+    <div class="vs-section">VS</div>
+    <div class="team-section">
+      <div>
+        <div class="team-name-big">${trasf}</div>
+        <div class="team-stat">${p.cartelliniTrasferta || 0} cartellini previsti</div>
+      </div>
+    </div>
+  `;
+  
+  // Previsione box
+  const prevBox = document.createElement('div');
+  prevBox.className = 'previsione-box';
+  prevBox.innerHTML = `
+    <div class="previsione-title">📋 Previsione Cartellini</div>
+    <div class="previsione-stats">
+      <div class="stat-item">
+        <div class="stat-icon">🟨</div>
+        <div class="stat-value">${gialli}</div>
+        <div class="stat-label">Gialli</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">🟥</div>
+        <div class="stat-value">${rossi}</div>
+        <div class="stat-label">Rossi</div>
+      </div>
+      <div class="stat-item highlight">
+        <div class="stat-icon">📊</div>
+        <div class="stat-value">${cartelliniTotali}</div>
+        <div class="stat-label">Totali</div>
+      </div>
+    </div>
+    <div class="previsione-text">${spiegazioneRischio}</div>
+  `;
+  
+  // ✅ Range box con spiegazione migliore
+  const rangeBox = document.createElement('div');
+  rangeBox.className = 'range-box';
+  rangeBox.innerHTML = `
+    <div class="range-title">🎯 Analisi Probabilità</div>
+    <div class="probabilita-card">
+      <div class="prob-row">
+        <span class="prob-label">Indice di nervosismo partita:</span>
+        <span class="prob-value" style="color: ${badgeColor}; font-weight: 700;">${probabilitaMedia}%</span>
+      </div>
+      <div class="prob-bar-container">
+        <div class="prob-bar" style="width: ${probabilitaMedia}%; background: ${badgeColor};"></div>
+      </div>
+      <div class="prob-description">
+        Basato su: storico giocatori, severità arbitro e importanza della partita
+      </div>
+    </div>
+    <div class="range-estimate">
+      Range atteso: <strong>${rangeMin} - ${rangeMax}</strong> cartellini totali
+    </div>
+  `;
+  
+  // Giocatori a rischio
+  let giocatoriBox = '';
+  if (p.giocatoriRischio && p.giocatoriRischio.length > 0) {
+    const giocatoriHTML = p.giocatoriRischio.map((g, idx) => {
+      const prob = Number(g.probabilita) || 0;
+      let bgColor = '#d4edda';
+      if (prob >= 50) bgColor = '#f8d7da';
+      else if (prob >= 40) bgColor = '#fff3cd';
+      
+      return `
+        <div class="giocatore-item">
+          <div class="giocatore-rank">#${idx + 1}</div>
+          <div class="giocatore-info">
+            <div class="giocatore-nome">${g.nome || 'N/D'}</div>
+            <div class="giocatore-squadra">${g.squadra || 'N/D'}</div>
+          </div>
+          <div class="giocatore-prob" style="background: ${bgColor}">
+            ${prob}%
+          </div>
         </div>
-
-        <div class="prediction-match-row">
-
-          <div style="text-align:center;">
-            ${p.logoCasa ? `<img class="team-logo" src="${p.logoCasa}">` : ''}
-            <div class="team-name">${casa}</div>
-          </div>
-
-          <div class="bestbet-box">
-            <div class="bestbet-value">🟨</div>
-            <div class="bestbet-perc">${perc.toFixed(0)}%</div>
-          </div>
-
-          <div style="text-align:center;">
-            ${p.logoTrasferta ? `<img class="team-logo" src="${p.logoTrasferta}">` : ''}
-            <div class="team-name">${trasf}</div>
-          </div>
-
+      `;
+    }).join('');
+    
+    giocatoriBox = `
+      <div class="giocatori-box">
+        <div class="giocatori-title">⚠️ Giocatori più a rischio cartellino</div>
+        <div class="giocatori-subtitle">Probabilità di ricevere un cartellino in questa partita</div>
+        <div class="giocatori-list">
+          ${giocatoriHTML}
         </div>
-
       </div>
     `;
-  });
+  }
+  
+  card.appendChild(header);
+  card.appendChild(matchInfo);
+  card.appendChild(prevBox);
+  card.appendChild(rangeBox);
+  if (giocatoriBox) {
+    const gBox = document.createElement('div');
+    gBox.innerHTML = giocatoriBox;
+    card.appendChild(gBox.firstElementChild);
+  }
+  
+  return card;
+}
 
-  container.innerHTML = html;
+
+
+
+
+
+
+
+
+
+// ✅ Funzione helper per escapare HTML
+function escapeHtml(text) {
+  if (!text) return '';
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+// ✅ Funzione helper per costruire la lista giocatori
+function buildGiocatoriRischio(giocatori) {
+  if (!giocatori || !giocatori.length) return '';
+  
+  const items = giocatori.map((g, idx) => {
+    const nome = escapeHtml(g.nome || 'N/D');
+    const squadra = escapeHtml(g.squadra || 'N/D');
+    const prob = Number(g.probabilita) || 0;
+    
+    let bgColor = '#d4edda';
+    if (prob >= 50) bgColor = '#f8d7da';
+    else if (prob >= 40) bgColor = '#fff3cd';
+    
+    return `
+      <div class="giocatore-item">
+        <div class="giocatore-rank">#${idx + 1}</div>
+        <div class="giocatore-info">
+          <div class="giocatore-nome">${nome}</div>
+          <div class="giocatore-squadra">${squadra}</div>
+        </div>
+        <div class="giocatore-prob" style="background: ${bgColor}">
+          ${prob}%
+        </div>
+      </div>
+    `;
+  }).join('');
+  
+  return `
+    <div class="giocatori-box">
+      <div class="giocatori-title">⚠️ Giocatori più a rischio</div>
+      <div class="giocatori-list">
+        ${items}
+      </div>
+    </div>
+  `;
 }
 
 
 async function loadCartellini(prefix) {
-    const actualPrefix = prefix || 'A';
-    setLoading('cartellini-content', 'Analisi cartellini Serie ' + actualPrefix + '...');
-    
-    try {
-        const res = await runGAS("getCartelliniForWeb", state.activeCampionato);
-        
-        if (res && res.success) {
-            if (res.partite && res.partite.length > 0) {
-                displayCartellini(res, actualPrefix);
-            } else {
-                const container = document.getElementById('cartellini-content');
-                container.innerHTML = '<div class="card"><div class="card-body text-center">' +
-                    '<div style="color: var(--accent-gold); margin-bottom: 1rem;">🧪 Modalità Demo</div>' +
-                    '<button class="btn" id="btn-preview-cartellini" style="background: var(--accent-gold); color: var(--bg-primary);">👁️ Mostra Anteprima</button>' +
-                    '</div></div>';
-                
-                setTimeout(function() {
-                    const btn = document.getElementById("btn-preview-cartellini");
-                    if (btn) {
-                        btn.onclick = function() { displayCartellini(res, actualPrefix); };
-                    }
-                }, 0);
-            }
-        } else {
-            throw new Error(res?.error || "Errore");
-        }
-    } catch (err) { 
-        document.getElementById('cartellini-content').innerHTML = 
-            '<div class="card"><div class="card-body text-center">' +
-            '<div style="color: var(--accent-red);">❌ Errore</div>' +
-            '<button class="btn" onclick="loadCartellini(\'A\')">🔄 Ricarica</button>' +
-            '</div></div>';
-    }
-}
+  const actualPrefix = prefix || 'A';
+  const container = document.getElementById('cartellini-content');
 
-async function loadCartellini_Home() {
-  const container = document.getElementById("home-cartellini");
-  if (!container) return;
+  if (!container) {
+    console.warn('cartellini-content non presente nel DOM');
+    return;
+  }
 
   container.innerHTML = `
     <div class="loading">
       <div class="spinner"></div>
-      <p>Analisi cartellini in corso...</p>
+      <p>Analisi cartellini Serie ${actualPrefix}...</p>
     </div>
   `;
 
   try {
-    const res = await runGAS("getCartelliniForWeb");
+    const res = await runGAS("getCartelliniForWeb", actualPrefix);
+    console.log("RISPOSTA CARTELLINI:", res);
 
-    if (res?.success && res.cartellini?.length > 0) {
-      displayCartellini(res.cartellini, "home-cartellini");
+    if (res && res.success) {
+    if (Array.isArray(res.cartellini) && res.cartellini.length > 0) {
+        displayCartellini(res.cartellini);
     } else {
-      container.innerHTML = `
-        <div class="card">
-          <div class="card-body text-center text-secondary">
-            Nessuna previsione cartellini disponibile.
-          </div>
-        </div>`;
+        const container = document.getElementById('cartellini-content');
+        if (container) {
+            container.innerHTML = `
+              <div class="card">
+                <div class="card-body text-center">
+                  Nessuna previsione cartellini disponibile.
+                </div>
+              </div>`;
+        }
     }
+}
+
   } catch (err) {
-    console.error(err);
+    console.error('Errore loadCartellini:', err);
     container.innerHTML = `
       <div class="card">
-        <div class="card-body text-center text-red">
-          Errore tecnico cartellini
+        <div class="card-body text-center">
+          <div style="color: var(--accent-red);">❌ Errore cartellini</div>
+          <button class="btn" onclick="loadCartellini('${actualPrefix}')">🔄 Ricarica</button>
         </div>
       </div>`;
   }
 }
+
+
+
 
 // ========================================
 // DISPLAY FUNCTIONS
@@ -3064,16 +3679,17 @@ async function loadMisterX_Home() {
     try {
         const res = await runGAS("getMisterXForWeb");
 
-        if (res?.success && res.misterx?.length > 0) {
-            displayMisterX(res.misterx, containerId);
-        } else {
-            container.innerHTML = `
-                <div class="card">
-                    <div class="card-body text-center text-secondary">
-                        Nessun Mister X disponibile.
-                    </div>
-                </div>`;
-        }
+       
+if (res?.success && res.misterX?.length > 0) {
+    displayMisterX(res);
+} else {
+    container.innerHTML = `
+        <div class="card">
+            <div class="card-body text-center text-secondary">
+                Nessun Mister X disponibile.
+            </div>
+        </div>`;
+}
 
     } catch (err) {
         console.error("❌ Errore Mister X:", err);
@@ -3720,15 +4336,23 @@ function displayTop1X2Weekend_Home(res) {
   container.innerHTML = html;
 }
 
+
+
+
+
+
+
+
+
+
+
+
 console.log("FINE FILE OK");
 
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js')
-      .then(() => console.log('Service Worker OK'))
-      .catch(err => console.error('SW error', err));
-  });
-}
+
+
+
+
 </script>
 </body>
-  </html>
+</html>
